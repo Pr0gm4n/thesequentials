@@ -1,5 +1,6 @@
 ﻿package {
 	import flash.display.MovieClip;
+	import flash.events.*;
 	
 	public class Grid extends MovieClip {
 
@@ -18,16 +19,17 @@
 		
 		protected var character:Bug;
 		
-		protected var goalX:uint;
-		protected var goalY:uint;
+		protected var goal:Goal;
 		
 		protected var block:Vector.<Vector.<Boolean>>;
+		
+		private var message;
 		
 		public function Grid(document:main, rows, cols, addCharacter:Boolean = true, goalX = 7, goalY = 7) {
 			this.document = document;
 			
-			this.goalX = goalX;
-			this.goalY = goalY;
+			this.goal = new SimpleGoal(goalX, goalY);
+			
 			this.rows = rows;
 			this.cols = cols;
 			
@@ -41,18 +43,30 @@
 			for (var i:Number = 0; i < rows; i++) {
 				block[i] = new Vector.<Boolean>(cols, true);
 			}
+			
+			this.message = new dialog;
+			message.x = 940;
+			message.y = 500;
+			message.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void {
+				document.allowInput();
+				document.removeChild(message);
+			});
 		}
 		
 		public function isAccessible(posX:uint, posY:uint):Boolean {
 			return (0 <= posX && posX < this.cols && 0 <= posY && posY < this.rows && !block[posY][posX]);
 		}
 		
-		public function isGoal(posX:uint, posY:uint):Boolean {
-			return (posX == goalX && posY == goalY);
+		public function getGoal():Goal {
+			return goal;
 		}
 		
 		public function move(action:uint):void {
 			character.move(action);
+			if (goal.isGoal(character.posX, character.posY)) {
+				document.addChild(message);
+				document.blockInput();
+			}
 		}
 		
 		public function getPosX():uint {

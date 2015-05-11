@@ -317,12 +317,12 @@
 		 */
 		private function updateGoButton() {
 			if (moves.length < 4) {
-				enableGoButton = false;
 				var ghost:Bug = new Bug(document, game, game.getPosX(), game.getPosY(), game.getDirection(), 10, 0);
 				ghost.gotoAndStop(1);
 				for (var i:Number = 0; i < moves.length; i++) {
 					ghost.move(moves[i]);
 				}
+				enableGoButton = game.getGoal().isGoal(ghost.posX, ghost.posY, false);
 			}
 			if (moves.length == 4 || enableGoButton) {
 				if (goButton.stage) {

@@ -51,8 +51,7 @@
 						if (row[x].match(/[a-z]/) != null) {
 							block[y][x] = true;
 						} else if (row[x].match(/[1-9]/) != null) {
-							goalX = x;
-							goalY = y;
+							goal = new SimpleGoal(x, y);
 						}
 						image.x = x * Grid.DX;
 						image.y = y * Grid.DY;
