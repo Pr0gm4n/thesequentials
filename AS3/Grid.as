@@ -33,7 +33,7 @@
 			this.rows = rows;
 			this.cols = cols;
 			
-			character = new Bug(document, this);
+			character = new Bug(this);
 			character.gotoAndStop(1);
 			if (addCharacter) {
 				addChild(character);

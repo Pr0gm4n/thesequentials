@@ -14,8 +14,6 @@
 		
 		static const cubeColor:Array = [0xff0000, 0xffdab9, 0x007f00];
 		
-		private var document:main;
-		
 		var mode:uint;
 		var block_newInput:Boolean;
 		
@@ -51,8 +49,6 @@
 			codeMap[38] = Bug.FORWARD;
 			codeMap[39] = Bug.TURNRIGHT;
 			codeMap[40] = Bug.UNDO;
-			
-			this.document = this;
 			
 			//*
 			input = new FiducialInput(this);
@@ -115,7 +111,7 @@
 				if (moves.length > 0 && !block_newInput) {
 					var tmpMoves:Array = moves.slice(); // shallow copy, works for non-object arrays
 					
-					var ghost:Bug = new Bug(document, game, game.getPosX(), game.getPosY(), game.getDirection(), 2, 0.5);
+					var ghost:Bug = new Bug(game, game.getPosX(), game.getPosY(), game.getDirection(), 2, 0.5);
 					ghost.gotoAndStop(1);
 					game.addChild(ghost);
 					
@@ -317,7 +313,7 @@
 		 */
 		private function updateGoButton() {
 			if (moves.length < 4) {
-				var ghost:Bug = new Bug(document, game, game.getPosX(), game.getPosY(), game.getDirection(), 10, 0);
+				var ghost:Bug = new Bug(game, game.getPosX(), game.getPosY(), game.getDirection(), 10, 0);
 				ghost.gotoAndStop(1);
 				for (var i:Number = 0; i < moves.length; i++) {
 					ghost.move(moves[i]);
