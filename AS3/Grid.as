@@ -43,7 +43,7 @@
 			}
 		}
 		
-		public function isAccessible(posX:uint, posY:uint, fromDirection:uint):Boolean {
+		public function isAccessible(posX:uint, posY:uint):Boolean {
 			return (0 <= posX && posX < this.cols && 0 <= posY && posY < this.rows && !block[posY][posX]);
 		}
 		

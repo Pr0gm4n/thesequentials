@@ -123,7 +123,7 @@
 			dx = -1 * ((direction - 1) % 2); // 0: 1, 1: 0, 2: -1, 3: 0
 			dy = -1 * ((direction - 2) % 2); // 0: 0, 1: 1, 2: 0, 3: -1
 			
-			if (grid.isAccessible(posX + dx, posY + dy, direction)){
+			if (grid.isAccessible(posX + dx, posY + dy)){
 				this.posX += dx;
 				this.posY += dy;
 			
