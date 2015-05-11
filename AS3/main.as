@@ -65,7 +65,7 @@
 			mainMenu = new menu(this);
 			addChild(mainMenu);
 			
-			game = new Map(this, 8, 8, 3, 2);
+			game = new Map(this, 8, 8, 2, 3);
 			game.x = 400;
 			game.y = 50;
 			
