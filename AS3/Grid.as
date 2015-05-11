@@ -66,5 +66,9 @@
 		public function getDirection():int {
 			return character.direction;
 		}
+		
+		public function setSpeed(speed:Number):void {
+			character.speed = speed;
+		}
 	}
 }

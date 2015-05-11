@@ -107,12 +107,15 @@
 		private function setupIntermediateMode() {
 			setupAdvancedMode();
 			
+			game.setSpeed(1);
+			movementDelay.delay = 1000;
+			
 			var ghostDelay:Timer = new Timer(8000);
 			ghostDelay.addEventListener(TimerEvent.TIMER, function(e:TimerEvent = null):void {
 				if (moves.length > 0 && !block_newInput) {
 					var tmpMoves:Array = moves.slice(); // shallow copy, works for non-object arrays
 					
-					var ghost:Bug = new Bug(document, game, game.getPosX(), game.getPosY(), game.getDirection(), 0.5);
+					var ghost:Bug = new Bug(document, game, game.getPosX(), game.getPosY(), game.getDirection(), 2, 0.5);
 					ghost.gotoAndStop(1);
 					game.addChild(ghost);
 					
@@ -141,6 +144,8 @@
 		private function setupAdvancedMode() {
 			setupEasyMode();
 			
+			game.setSpeed(2);
+			
 			moves = [];
 			moveDisplayArray = [];
 			moveDisplayBackgrounds = [];
@@ -163,7 +168,7 @@
 			
 			updateGoButton();
 			
-			movementDelay = new Timer(1000, 4);
+			movementDelay = new Timer(500, 4);
 			
 			goButtonGreen.addEventListener(MouseEvent.CLICK, clickGoButton);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
@@ -313,7 +318,7 @@
 		private function updateGoButton() {
 			if (moves.length < 4) {
 				enableGoButton = false;
-				var ghost:Bug = new Bug(document, game, game.getPosX(), game.getPosY(), game.getDirection(), 0);
+				var ghost:Bug = new Bug(document, game, game.getPosX(), game.getPosY(), game.getDirection(), 10, 0);
 				ghost.gotoAndStop(1);
 				for (var i:Number = 0; i < moves.length; i++) {
 					ghost.move(moves[i]);

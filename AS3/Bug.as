@@ -29,6 +29,7 @@
 		
 		// for smooth rotation
 		private var angle:int;
+		public var speed:Number;
 		
 		// store the last performed action for undo()
 		private var last:uint;
@@ -41,7 +42,7 @@
 		 * @param direction Uses the directions Grid.EAST, Grid.SOUTH, Grid.WEST and Grid.NORTH.
 		 * @param alpha Controls the transparency of the bug.
 		 */
-		public function Bug(document:main, grid:Grid, posX:uint = 0, posY:uint = 0, direction:uint = 0, alpha:Number = 1.0) {
+		public function Bug(document:main, grid:Grid, posX:uint = 0, posY:uint = 0, direction:uint = 0, speed:Number = 1.0, alpha:Number = 1.0) {
 			this.document = document;
 			
 			this.posX = posX;
@@ -57,6 +58,7 @@
 			});
 			}
 			
+			this.speed = speed;
 			this.alpha = alpha;
 			
 			this.last = UNDO;
@@ -145,7 +147,7 @@
 		
 		public function turnLeft():void {
 			direction = (direction + 3) % 4;
-			TweenMax.to(this, 1, {
+			TweenMax.to(this, 1 / speed, {
 				shortRotation: {
 					rotation: angle -= 90
 				}
@@ -157,7 +159,7 @@
 		
 		public function turnRight():void {
 			direction = (direction + 1) % 4;
-			TweenMax.to(this, 1, {
+			TweenMax.to(this, 1 / speed, {
 				shortRotation: {
 					rotation: angle += 90
 				}
@@ -169,7 +171,7 @@
 		
 		public function updatePosition(animate:Boolean = true):void {
 			if (animate) {
-				TweenMax.to(this, 1, {
+				TweenMax.to(this, 1 / speed, {
 					x: (posX + 0.5) * Grid.DX,
 					y: (posY + 0.5) * Grid.DY
 				});
@@ -180,11 +182,11 @@
 		}
 		
 		private function noAccess() {
-			TweenMax.to(this, 0.2, {
+			TweenMax.to(this, 0.2 / speed, {
 				x: (posX + 0.5 + 0.5 * ((direction + 1) % 2)) * Grid.DX,
 				y: (posY + 0.5 + 0.5 * (direction % 2)) * Grid.DY
 			});
-			TweenMax.to(this, 0.5, {
+			TweenMax.to(this, 0.5 / speed, {
 				x: (posX + 0.5) * Grid.DX,
 				y: (posY + 0.5) * Grid.DY
 			});
