@@ -45,9 +45,19 @@
 		}
 		
 		public function parse(input:Array):void {
-			goals.push(new ORExpression(new Variable("1"), new Variable("2")));
-			goals.push(new Variable("3"));
-			trace("parsing: " + input);
+			for each (var line in input) {
+				if (line.length > 1) {
+					var variables = line.replace("!", "").slice(0, -1).split(",");
+					var expression:Expression = new Expression();
+					for each (var variable in variables) {
+						expression = new ORExpression(expression, new Variable(variable));
+					}
+					if (line.charAt(0) == "!") {
+						expression = new NOTExpression(expression);
+					}
+					goals.push(expression);
+				}
+			}
 		}
 	}
 }

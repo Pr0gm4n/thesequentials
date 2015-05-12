@@ -40,7 +40,6 @@
 			
 			for (var y:Number = 0; y < rows; y++) {
 				var row:Array = structure[y].split("");
-				trace(row[row.length-1]);
 				row.splice(-1, 1);
 				
 				for (var x in row) {
