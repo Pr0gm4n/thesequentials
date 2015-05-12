@@ -12,5 +12,9 @@
 		override public function evaluate(variables:Dictionary):Boolean {
 			return (variables[variable] != undefined);
 		}
+		
+		override public function toString():String {
+			return "the " + variable;
+		}
 	}
 }

@@ -9,5 +9,9 @@
 		public function evaluate(variables:Dictionary):Boolean {
 			return false;
 		}
+		
+		public function toString():String {
+			return "";
+		}
 	}
 }

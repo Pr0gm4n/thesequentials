@@ -5,7 +5,7 @@ a
 a2ccc   
 aacc    
 aaa     
-aaaaa  4
+aaaaa  3
 1,2
 3
-!4
+!1

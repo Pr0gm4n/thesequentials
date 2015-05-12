@@ -14,5 +14,15 @@
 		override public function evaluate(variables:Dictionary):Boolean {
 			return (left.evaluate(variables) || right.evaluate(variables));
 		}
+		
+		override public function toString():String {
+			if (left.toString() == "") {
+				return right.toString();
+			} else if (right.toString() == "") {
+				return left.toString();
+			} else {
+				return left.toString() + " OR " + right.toString();
+			}
+		}
 	}
 }
