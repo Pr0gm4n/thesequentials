@@ -49,7 +49,7 @@
 						image = new Loader();
 						image.load(new URLRequest(path + row[x] + TILE_FILEEXTENSION));
 						if (row[x].match(/[a-z]/) != null) {
-							block[y][x] = true;
+							block[x][y] = true;
 						} else if (row[x].match(/[1-9]/) != null) {
 							goal = new SimpleGoal(x, y);
 						}

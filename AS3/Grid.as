@@ -39,9 +39,9 @@
 				addChild(character);
 			}
 			
-			block = new Vector.<Vector.<Boolean>>(rows, true);
-			for (var i:Number = 0; i < rows; i++) {
-				block[i] = new Vector.<Boolean>(cols, true);
+			block = new Vector.<Vector.<Boolean>>(cols, true);
+			for (var i:Number = 0; i < cols; i++) {
+				block[i] = new Vector.<Boolean>(rows, true);
 			}
 			
 			this.message = new dialog;
@@ -54,7 +54,7 @@
 		}
 		
 		public function isAccessible(posX:uint, posY:uint):Boolean {
-			return (0 <= posX && posX < this.cols && 0 <= posY && posY < this.rows && !block[posY][posX]);
+			return (0 <= posX && posX < this.cols && 0 <= posY && posY < this.rows && !block[posX][posY]);
 		}
 		
 		public function getGoal():Goal {
