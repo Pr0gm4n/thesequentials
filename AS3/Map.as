@@ -12,6 +12,7 @@
 		public static const BACKGROUND:String = "background.png";
 		public static const BASETILE:String = "base";
 		public static const TILE_FILEEXTENSION:String = ".png";
+		public static const GOALNAMES:String = "goals.txt";
 		
 		private var path;
 		private var file:URLLoader;
@@ -65,6 +66,9 @@
 			}
 			
 			logicGoal.parse(structure.slice(rows));
+			file = new URLLoader();
+			file.addEventListener(Event.COMPLETE, loadGoalNames);
+			file.load(new URLRequest(path + GOALNAMES));
 			
 			addChild(character);
 			
@@ -74,6 +78,15 @@
 			image.x = 1075;
 			image.y = 55;
 			addChild(image);
+		}
+		
+		private function loadGoalNames(e:Event = null) {
+			var goalNames = file.data.split("\n");
+			var task = logicGoal.toString();
+			for (var name in goalNames) {
+				task = task.split(name + 1).join(goalNames[name].slice(0, -1));
+			}
+			trace(task);
 		}
 	}
 }

@@ -8,5 +8,9 @@
 		public function isGoal(posX:uint, posY:uint, keep:Boolean = true):Boolean {
 			return false;
 		}
+		
+		public function toString():String {
+			return "";
+		}
 	}
 }

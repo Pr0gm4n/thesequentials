@@ -59,5 +59,11 @@
 				}
 			}
 		}
+		
+		override public function toString():String {
+			if (goals.length > 0) {
+				return "Get " + goals.slice(0, -1).join(", ") + " and " + goals[goals.length - 1] + ".";
+			} else return "";
+		}
 	}
 }
