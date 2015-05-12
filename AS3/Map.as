@@ -15,9 +15,14 @@
 		
 		private var path;
 		private var file:URLLoader;
+		
+		protected var logicGoal:LogicGoal;
 
 		public function Map(document:main, rows, cols, map:uint, layout:uint = 1) {
 			super(document, rows, cols, false);
+			this.goal = new LogicGoal(rows, cols);
+			this.logicGoal = goal as LogicGoal;
+			
 			this.path = MAPPATH + MAPFOLDER_PREFIX + map + "/";
 			
 			this.file = new URLLoader();
@@ -51,7 +56,7 @@
 						if (row[x].match(/[a-z]/) != null) {
 							block[x][y] = true;
 						} else if (row[x].match(/[1-9]/) != null) {
-							goal = new SimpleGoal(x, y);
+							logicGoal.setPos(x, y, row[x]);
 						}
 						image.x = x * Grid.DX;
 						image.y = y * Grid.DY;
@@ -59,6 +64,8 @@
 					}
 				}
 			}
+			
+			logicGoal.parse(structure.slice(rows));
 			
 			addChild(character);
 			
