@@ -1,4 +1,4 @@
-﻿package {
+﻿package game {
 	
 	import flash.display.*;
 	import flash.utils.*;

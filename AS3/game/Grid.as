@@ -1,4 +1,7 @@
-﻿package {
+﻿package game {
+		
+	import goal.*;
+	
 	import flash.display.MovieClip;
 	import flash.events.*;
 	

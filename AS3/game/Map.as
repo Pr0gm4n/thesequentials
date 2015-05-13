@@ -1,4 +1,4 @@
-﻿package {
+﻿package game {
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.net.URLLoader;
@@ -19,8 +19,11 @@
 		
 		protected var logicGoal:LogicGoal;
 
-		public function Map(document:main, rows, cols, map:uint, layout:uint = 1) {
+		public function Map(document:main, x:uint, y:uint, rows:uint, cols:uint, map:uint, layout:uint = 1) {
 			super(document, rows, cols, false);
+			this.x = x;
+			this.y = y;
+			
 			this.goal = new LogicGoal(rows, cols);
 			this.logicGoal = goal as LogicGoal;
 			

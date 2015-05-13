@@ -1,4 +1,6 @@
-﻿package  {
+﻿package input {
+	
+	import game.Bug;
 	
 	public class Input {
 		
@@ -9,7 +11,7 @@
 		public function Input(document:main) {
 			this.document = document;
 			this.last = -1;
-			this.next = -1;
+			this.next = 0;
 		}
 
 		protected function input(input:uint):void {

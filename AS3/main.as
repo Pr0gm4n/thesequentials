@@ -1,4 +1,6 @@
 ﻿package {
+	import game.*;
+	import input.*;
 	
 	import flash.display.*;
 	import flash.events.*;
@@ -56,14 +58,10 @@
 			input = new KeyboardInput(this);
 			// */
 			
-			input.next = 0;
-			
 			mainMenu = new menu(this);
 			addChild(mainMenu);
 			
-			game = new Map(this, 8, 8, 2, 3);
-			game.x = 400;
-			game.y = 50;
+			game = new Map(this, 400, 50, 8, 8, 2, 3);
 			
 			checkList = new mockList;
 			checkList.x = 1350;

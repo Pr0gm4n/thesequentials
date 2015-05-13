@@ -1,4 +1,4 @@
-﻿package {
+﻿package goal {
 	
 	public class Goal {
 
