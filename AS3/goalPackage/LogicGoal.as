@@ -1,4 +1,7 @@
-﻿package goal {
+﻿package goalPackage {
+	
+	import expressionPackage.*;
+	
 	import flash.utils.Dictionary;
 	
 	public class LogicGoal extends Goal {

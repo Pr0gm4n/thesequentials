@@ -1,4 +1,7 @@
-﻿package game {
+﻿package gamePackage {
+	
+	import goalPackage.*;
+	
 	import flash.display.Loader;
 	import flash.events.Event;
 	import flash.net.URLLoader;

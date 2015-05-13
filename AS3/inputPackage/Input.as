@@ -1,6 +1,6 @@
-﻿package input {
+﻿package inputPackage {
 	
-	import game.Bug;
+	import gamePackage.Bug;
 	
 	public class Input {
 		

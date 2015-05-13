@@ -1,4 +1,4 @@
-﻿package goal {
+﻿package goalPackage {
 	
 	public class SimpleGoal extends Goal {
 		

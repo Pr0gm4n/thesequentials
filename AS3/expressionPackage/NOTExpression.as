@@ -1,4 +1,4 @@
-﻿package {
+﻿package expressionPackage {
 	import flash.utils.Dictionary;
 	
 	public class NOTExpression extends Expression {

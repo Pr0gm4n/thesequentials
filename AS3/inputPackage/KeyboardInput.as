@@ -1,4 +1,4 @@
-﻿package input {
+﻿package inputPackage {
 	
 	import flash.events.*;
 	import flash.utils.*;

@@ -1,6 +1,6 @@
 ﻿package {
-	import game.*;
-	import input.*;
+	import gamePackage.*;
+	import inputPackage.*;
 	
 	import flash.display.*;
 	import flash.events.*;

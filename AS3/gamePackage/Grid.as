@@ -1,6 +1,6 @@
-﻿package game {
+﻿package gamePackage {
 		
-	import goal.*;
+	import goalPackage.*;
 	
 	import flash.display.MovieClip;
 	import flash.events.*;
