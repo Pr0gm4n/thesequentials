@@ -328,21 +328,21 @@
 		
 		private function updateArduino():void {
 			if (arduino.connected) {
+				arduino.setPinMode(4, Arduino.OUTPUT);
+				arduino.setPinMode(5, Arduino.OUTPUT);
+				arduino.setPinMode(6, Arduino.OUTPUT);
+				arduino.writeDigitalPin(4, 0);
+				arduino.writeDigitalPin(5, 0);
+				arduino.writeDigitalPin(6, 0);
 				switch(nextCubeColor.color) {
 					case cubeColor[0]:
-						trace("10: 0, 11: 1");
-						arduino.writeDigitalPin(10, 0);
-						arduino.writeDigitalPin(11, 1);
+						arduino.writeDigitalPin(4, 1);
 						break;
 					case cubeColor[1]:
-						trace("10: 1, 11: 0");
-						arduino.writeDigitalPin(10, 1);
-						arduino.writeDigitalPin(11, 0);
+						arduino.writeDigitalPin(5, 1);
 						break;
 					default:
-						trace("10: 1, 11: 1");
-						arduino.writeDigitalPin(10, 1);
-						arduino.writeDigitalPin(11, 1);
+						arduino.writeDigitalPin(6, 1);
 				}
 			}
 		}
