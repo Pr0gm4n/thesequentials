@@ -8,6 +8,8 @@
 	import flash.utils.*;
 	import flash.geom.ColorTransform;
 	
+	import net.eriksjodin.arduino.Arduino;
+	
 	public class main extends MovieClip{
 		
 		static const EASY:uint = 0;
@@ -24,6 +26,9 @@
 		
 		// handles the input and calls
 		var input:Input;
+		
+		// handle connection to the arduino
+		var arduino:Arduino;
 		
 		// basic display objects
 		var mainMenu:menu;
@@ -66,6 +71,7 @@
 			checkList.y = 50;
 			
 			nextCubeColor = new ColorTransform();
+			arduino = new Arduino();
 			
 			mode = EASY;
 		}
@@ -315,6 +321,23 @@
 			background.y = y - 0.5 * background.height;
 			background.transform.colorTransform = nextCubeColor;
 			moveDisplayBackgrounds.push(background);
+			
+			switch(nextCubeColor.color) {
+				case cubeColor[0]:
+					trace("0: 0, 1: 1");
+					arduino.writeDigitalPin(0, 0);
+					arduino.writeDigitalPin(1, 1);
+					break;
+				case cubeColor[1]:
+					trace("0: 1, 1: 0");
+					arduino.writeDigitalPin(0, 1);
+					arduino.writeDigitalPin(1, 0);
+					break;
+				default:
+					trace("0: 1, 1: 1");
+					arduino.writeDigitalPin(0, 1);
+					arduino.writeDigitalPin(1, 1);
+			}
 		
 			addChild(background);
 		}
