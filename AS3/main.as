@@ -269,6 +269,7 @@
 				input.next = (input.last + 1) % cubeColor.length;
 				
 				nextCubeColor.color = cubeColor[input.next];
+				updateArduino();
 			}
 		}
 		
@@ -278,6 +279,7 @@
 				input.last = (input.last + cubeColor.length - 1) % cubeColor.length;
 				
 				nextCubeColor.color = cubeColor[input.next];
+				updateArduino();
 			}
 		}
 		
@@ -293,7 +295,7 @@
 		/**
 		 * Toggles between grey/green GoButton.
 		 */
-		private function updateGoButton() {
+		private function updateGoButton():void {
 			if (moves.length < 4) {
 				var ghost:Bug = new Bug(game, game.getPosX(), game.getPosY(), game.getDirection(), 10, 0);
 				ghost.gotoAndStop(1);
@@ -315,31 +317,34 @@
 			}
 		}
 		
-		private function addMoveDisplayBackground(x:uint, y:uint) {
+		private function addMoveDisplayBackground(x:uint, y:uint):void {
 			var background = new Token();
 			background.x = x - 0.5 * background.width;
 			background.y = y - 0.5 * background.height;
 			background.transform.colorTransform = nextCubeColor;
 			moveDisplayBackgrounds.push(background);
-			
-			switch(nextCubeColor.color) {
-				case cubeColor[0]:
-					trace("0: 0, 1: 1");
-					arduino.writeDigitalPin(0, 0);
-					arduino.writeDigitalPin(1, 1);
-					break;
-				case cubeColor[1]:
-					trace("0: 1, 1: 0");
-					arduino.writeDigitalPin(0, 1);
-					arduino.writeDigitalPin(1, 0);
-					break;
-				default:
-					trace("0: 1, 1: 1");
-					arduino.writeDigitalPin(0, 1);
-					arduino.writeDigitalPin(1, 1);
-			}
-		
 			addChild(background);
+		}
+		
+		private function updateArduino():void {
+			if (arduino.connected) {
+				switch(nextCubeColor.color) {
+					case cubeColor[0]:
+						trace("10: 0, 11: 1");
+						arduino.writeDigitalPin(10, 0);
+						arduino.writeDigitalPin(11, 1);
+						break;
+					case cubeColor[1]:
+						trace("10: 1, 11: 0");
+						arduino.writeDigitalPin(10, 1);
+						arduino.writeDigitalPin(11, 0);
+						break;
+					default:
+						trace("10: 1, 11: 1");
+						arduino.writeDigitalPin(10, 1);
+						arduino.writeDigitalPin(11, 1);
+				}
+			}
 		}
 	}
 }
