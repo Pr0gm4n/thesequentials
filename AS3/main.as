@@ -35,9 +35,7 @@
 		var moveDisplayArray:Array;
 		var moveDisplayBackgrounds:Array;
 		var moveList;
-		var nextCube;
-		var nextCubeArea;
-		var nextCubeDisplay;
+		var nextCubeColor;
 		var goButton;
 		var goButtonGreen;
 		public var enableGoButton:Boolean;
@@ -67,15 +65,7 @@
 			checkList.x = 1350;
 			checkList.y = 50;
 			
-			nextCube = new nextText;
-			nextCube.x = 1420;
-			nextCube.y = 725;
-			
-			nextCubeArea = new nextArea;
-			nextCubeArea.x = 1350;
-			nextCubeArea.y = 725;
-			
-			nextCubeDisplay = new ColorTransform();
+			nextCubeColor = new ColorTransform();
 			
 			mode = EASY;
 		}
@@ -83,8 +73,6 @@
 		private function setupEasyMode() {
 			addChild(game);
 			addChild(checkList);
-			addChild(nextCubeArea);
-			addChild(nextCube);
 			nextInput();
 			
 			block_newInput = false;
@@ -143,6 +131,7 @@
 			moves = [];
 			moveDisplayArray = [];
 			moveDisplayBackgrounds = [];
+			addMoveDisplayBackground(200, 300);
 			
 			moveList = new inputText;
 			moveList.x = 200;
@@ -173,8 +162,9 @@
 			
 			movementDelay.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
 				if (moves.length > 0) {
-					game.move(moves[0]);
-					moves.shift();
+					game.move(moves.shift());
+					removeChild(moveDisplayArray.shift());
+					removeChild(moveDisplayBackgrounds.shift());
 				}
 			});
 			movementDelay.addEventListener(TimerEvent.TIMER_COMPLETE, function(e:TimerEvent):void {
@@ -182,14 +172,7 @@
 				allowInput();
 				updateGoButton();
 				
-				// remove the display arrows
-				for (var i=0; i< moveDisplayArray.length; i++) {
-					removeChild(moveDisplayArray[i]);
-					removeChild(moveDisplayBackgrounds[i]);
-				}
-				
-				moveDisplayArray = [];
-				moveDisplayBackgrounds = [];
+				addMoveDisplayBackground(200, 300);
 			});
 			
 			mode = ADVANCED;
@@ -252,19 +235,16 @@
 							arrow = new turnRightArrow();
 							break;
 					}
-					arrow.y = (300 + 130 * (moves.length - 1));
 					arrow.x = 200;
+					arrow.y = (300 + 130 * (moves.length - 1));
 					moveDisplayArray.push(arrow);
-					var background = new Token();
-					background.x = arrow.x - 0.5 * background.width;
-					background.y = arrow.y - 0.5 * background.height;
-					background.transform.colorTransform = nextCubeDisplay;
-					moveDisplayBackgrounds.push(background);
-					
-					addChild(background);
 					addChild(arrow);
 				
 					nextInput();
+					
+					if (moveDisplayBackgrounds.length < 4) {
+						addMoveDisplayBackground(arrow.x, arrow.y + 130);
+					}
 				}
 				updateGoButton();
 			}
@@ -282,8 +262,7 @@
 			if (input.next != -1) {
 				input.next = (input.last + 1) % cubeColor.length;
 				
-				nextCubeDisplay.color = cubeColor[input.next];
-				nextCubeArea.transform.colorTransform = nextCubeDisplay;
+				nextCubeColor.color = cubeColor[input.next];
 			}
 		}
 		
@@ -292,8 +271,7 @@
 				input.next = (input.last + cubeColor.length) % cubeColor.length;
 				input.last = (input.last + cubeColor.length - 1) % cubeColor.length;
 				
-				nextCubeDisplay.color = cubeColor[input.next];
-				nextCubeArea.transform.colorTransform = nextCubeDisplay;
+				nextCubeColor.color = cubeColor[input.next];
 			}
 		}
 		
@@ -329,6 +307,16 @@
 				}
 				addChild(goButton);
 			}
+		}
+		
+		private function addMoveDisplayBackground(x:uint, y:uint) {
+			var background = new Token();
+			background.x = x - 0.5 * background.width;
+			background.y = y - 0.5 * background.height;
+			background.transform.colorTransform = nextCubeColor;
+			moveDisplayBackgrounds.push(background);
+		
+			addChild(background);
 		}
 	}
 }
