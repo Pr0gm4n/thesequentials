@@ -42,8 +42,28 @@ _Green cube:_
 - Unassigned Command 2 : 17
 - Unassigned Command 3 : 18
 
-## Map layouts
+## Creating maps
+### Game environments
+A game environment consists of several files in a folder Maps/map#/ where # is the number of the environment. The required graphic files are:
+* background.png
+* base.png
+* the goals (1.png, 2.png, 3.png, ...)
+* the goal names in goals.txt (1.png on line 1, 2.png on line 2, ...)
+* the obstacles (a.png, b.png, c.png, ...)
+
+Please note, that _every_ line in the goals.txt needs to be ended by a newline character, even the last line.
+
+### Map layouts
 Map layouts can easily be created in the folder Maps/layouts as plain text files. They contain 8 lines of 8 characters to describe an 8x8 grid map. Please note, that _every_ line needs to be ended by a newline character, even the last line. There is 3 types of input fields:
 * space: a standard field
 * a letter (a, b, c, ...): an obstacle, corresponding to a.png, b.png, ... in the same folder
 * a number (1, 2, 3, ...): a goal that needs to be reached
+
+### Defining goals
+Below the actual map, goals can be defined in any number of following rows with a comprehensible syntax. Separate lines are goals that all need to be achieved (logical AND), whereas comma-separated targets on the same line are achieved as soon as one of the targets is achieved (logical OR). If a line begins with an "!" (exclamation point symbol), it's meaning is inverted (logical NOT). Please note, that _every_ line needs to be ended by a newline character, even the last line. A sample input may look like this:
+
+1,2
+3
+!4
+
+and translates to "Get the 1 OR the 2, the 3 and NOT the 4". The numbers will then be replaced according to the selected game environment and the goal names defined therein (goals.txt).
