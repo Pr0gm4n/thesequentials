@@ -5,6 +5,8 @@
 	import flash.text.*;
 	
 	import com.greensock.TweenMax;
+	import flash.media.Sound;
+	import flash.net.URLRequest;
 	
 	public class Bug extends MovieClip{
 		
@@ -18,6 +20,9 @@
 		public static const ACTION_5:uint = 5;
 		public static const ACTION_6:uint = 6;
 		
+		public static const SOUNDPATH:String = "../Sounds/";
+		public static const SOUND_FILEEXTENSION:String = ".mp3";
+		
 		public var posX:uint;
 		public var posY:uint;
 		
@@ -27,6 +32,11 @@
 		// for smooth rotation
 		private var angle:int;
 		public var speed:Number;
+		
+		// for movement sounds
+		protected var forwardSound:Sound;
+		protected var turnSound:Sound;
+		protected var bumpSound:Sound;
 		
 		// store the last performed action for undo()
 		private var last:uint;
@@ -53,6 +63,10 @@
 			
 			this.speed = speed;
 			this.alpha = alpha;
+			
+			forwardSound = new Sound(new URLRequest(SOUNDPATH + "ant_fwd" + SOUND_FILEEXTENSION));
+			turnSound = new Sound(new URLRequest(SOUNDPATH + "ant_turn" + SOUND_FILEEXTENSION));
+			bumpSound = new Sound(new URLRequest(SOUNDPATH + "ant_wall" + SOUND_FILEEXTENSION));
 			
 			this.last = UNDO;
 			
@@ -111,10 +125,13 @@
 			if (grid.isAccessible(posX + dx, posY + dy)){
 				this.posX += dx;
 				this.posY += dy;
+				updatePosition();
+				
+				if (alpha == 1.0) {
+					forwardSound.play();
+				}
 			
 				last = FORWARD;
-				
-				updatePosition();
 			} else {
 				noAccess();
 				last = UNDO;
@@ -123,24 +140,32 @@
 		
 		public function turnLeft():void {
 			direction = (direction + 3) % 4;
-			TweenMax.to(this, 1 / speed, {
+			TweenMax.to(this, 0.8 / speed, {
 				shortRotation: {
 					rotation: angle -= 90
 				}
 			});
 			angle %= 360;
 			
+			if (alpha == 1.0) {
+				turnSound.play();
+			}
+			
 			last = TURNLEFT;
 		}
 		
 		public function turnRight():void {
 			direction = (direction + 1) % 4;
-			TweenMax.to(this, 1 / speed, {
+			TweenMax.to(this, 0.8 / speed, {
 				shortRotation: {
 					rotation: angle += 90
 				}
 			});
 			angle %= 360;
+			
+			if (alpha == 1.0) {
+				turnSound.play();
+			}
 			
 			last = TURNRIGHT;
 		}
@@ -166,6 +191,10 @@
 				x: (posX + 0.5) * Grid.DX,
 				y: (posY + 0.5) * Grid.DY
 			});
+			
+			if (alpha == 1.0) {
+				bumpSound.play();
+			}
 		}
 	}
 }
