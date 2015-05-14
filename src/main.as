@@ -9,6 +9,7 @@
 	import flash.geom.ColorTransform;
 	
 	import net.eriksjodin.arduino.Arduino;
+	import net.eriksjodin.arduino.events.ArduinoEvent;
 	
 	public class main extends MovieClip{
 		
@@ -71,7 +72,21 @@
 			checkList.y = 50;
 			
 			nextCubeColor = new ColorTransform();
+			
 			arduino = new Arduino();
+			arduino.addEventListener(Event.CONNECT, function(e:Event):void {
+				trace("connected to Serproxy");
+				arduino.requestFirmwareVersion();
+			});
+			arduino.addEventListener(IOErrorEvent.IO_ERROR, function(e:Event):void {
+				trace("connection to Serproxy failed");
+			});
+			arduino.addEventListener(ArduinoEvent.FIRMWARE_VERSION, function(e:ArduinoEvent):void {
+				trace("connected to Arduino");
+				arduino.setPinMode(4, Arduino.OUTPUT);
+				arduino.setPinMode(5, Arduino.OUTPUT);
+				arduino.setPinMode(6, Arduino.OUTPUT);
+			});
 			
 			mode = EASY;
 		}
@@ -328,9 +343,6 @@
 		
 		private function updateArduino():void {
 			if (arduino.connected) {
-				arduino.setPinMode(4, Arduino.OUTPUT);
-				arduino.setPinMode(5, Arduino.OUTPUT);
-				arduino.setPinMode(6, Arduino.OUTPUT);
 				arduino.writeDigitalPin(4, 0);
 				arduino.writeDigitalPin(5, 0);
 				arduino.writeDigitalPin(6, 0);
