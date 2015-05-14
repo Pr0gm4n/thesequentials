@@ -70,8 +70,10 @@ Map layouts can easily be created in the folder Maps/layouts as plain text files
 ### Defining goals
 Below the actual map, goals can be defined in any number of following rows with a comprehensible syntax. Separate lines are goals that all need to be achieved (logical AND), whereas comma-separated targets on the same line are achieved as soon as one of the targets is achieved (logical OR). If a line begins with an "!" (exclamation point symbol), it's meaning is inverted (logical NOT). Please note, that __every__ line needs to be ended by a newline character, even the last line. A sample input may look like this:
 
+```
 1,2
 3
 !4
+```
 
 and translates to "Get the 1 OR the 2, the 3 and NOT the 4". The numbers will then be replaced according to the selected game environment and the goal names defined therein (goals.txt).

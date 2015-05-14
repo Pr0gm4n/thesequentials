@@ -147,7 +147,7 @@
 		private function setupAdvancedMode() {
 			setupEasyMode();
 			
-			game.setSpeed(2);
+			game.setSpeed(1.35);
 			
 			moves = [];
 			moveDisplayArray = [];
