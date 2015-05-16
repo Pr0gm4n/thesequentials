@@ -147,7 +147,7 @@
 		private function setupAdvancedMode() {
 			setupEasyMode();
 			
-			game.setSpeed(1.35);
+			game.setSpeed(1.2);
 			
 			moves = [];
 			moveDisplayArray = [];
@@ -236,8 +236,10 @@
 						moves.splice(-1, 1);
 						var tmp = moveDisplayArray.splice(-1, 1);
 						removeChild(tmp[0]);
-						tmp = moveDisplayBackgrounds.splice(-1, 1);
-						removeChild(tmp[0]);
+						if (1 < moveDisplayBackgrounds.length && moves.length < 3) {
+							tmp = moveDisplayBackgrounds.splice(-1, 1);
+							removeChild(tmp[0]);
+						}
 						
 						lastInput();
 					}
