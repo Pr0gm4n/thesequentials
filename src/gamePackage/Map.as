@@ -8,6 +8,7 @@
 	import flash.net.URLRequest;
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
+	import flash.media.SoundTransform;
 	
 	public class Map extends Grid {
 		public static const MUSICPATH:String = "../Music/";
@@ -87,7 +88,7 @@
 			
 			addChild(character);
 			
-			channel = music.play();
+			channel = music.play(0, 10000, new SoundTransform(0.2, 0));
 			
 			// show goal image in the mock list
 			image = new Loader();

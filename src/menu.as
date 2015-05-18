@@ -65,7 +65,7 @@
 			addChild(intermediateLevelButton);
 			addChild(advnacedLevelButton);
 			
-			channel = music.play();
+			channel = music.play(0, 1000);
 		}
 		
 		private function removeMenu() {
