@@ -6,8 +6,12 @@
 	import flash.events.Event;
 	import flash.net.URLLoader;
 	import flash.net.URLRequest;
+	import flash.media.Sound;
+	import flash.media.SoundChannel;
 	
 	public class Map extends Grid {
+		public static const MUSICPATH:String = "../Music/";
+		public static const MUSIC_FILEEXTENSION = ".mp3";
 		public static const MAPPATH:String = "../Maps/";
 		public static const LAYOUT_FOLDER:String = "layouts/";
 		public static const LAYOUT_FILEEXTENSION:String = ".txt";
@@ -21,6 +25,9 @@
 		private var file:URLLoader;
 		
 		protected var logicGoal:LogicGoal;
+		
+		protected var music:Sound;
+		protected var channel:SoundChannel;
 
 		public function Map(document:main, x:uint, y:uint, rows:uint, cols:uint, map:uint, layout:uint = 1) {
 			super(document, rows, cols, false);
@@ -35,6 +42,8 @@
 			this.file = new URLLoader();
 			file.addEventListener(Event.COMPLETE, loadMap);
 			file.load(new URLRequest(MAPPATH + LAYOUT_FOLDER + layout + LAYOUT_FILEEXTENSION));
+			
+			this.music = new Sound(new URLRequest(MUSICPATH + map + MUSIC_FILEEXTENSION));
 		}
 		
 		private function loadMap(e:Event = null) {
@@ -77,6 +86,8 @@
 			file.load(new URLRequest(path + GOALNAMES));
 			
 			addChild(character);
+			
+			channel = music.play();
 			
 			// show goal image in the mock list
 			image = new Loader();
