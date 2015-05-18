@@ -65,14 +65,6 @@
 			mainMenu = new menu(this);
 			addChild(mainMenu);
 			
-			game = new Map(this, 400, 50, 8, 8, 2, 3);
-			
-			checkList = new mockList;
-			checkList.x = 1350;
-			checkList.y = 50;
-			
-			nextCubeColor = new ColorTransform();
-			
 			arduino = new Arduino();
 			arduino.addEventListener(Event.CONNECT, function(e:Event):void {
 				trace("connected to Serproxy");
@@ -87,14 +79,16 @@
 				arduino.setPinMode(5, Arduino.OUTPUT);
 				arduino.setPinMode(6, Arduino.OUTPUT);
 			});
-			
-			mode = EASY;
 		}
 		
 		private function setupEasyMode() {
+			game = new Map(this, 400, 50, 8, 8, 2, 3);
 			addChild(game);
+			
+			checkList = new mockList;
+			checkList.x = 1350;
+			checkList.y = 50;
 			addChild(checkList);
-			nextInput();
 			
 			block_newInput = false;
 			
@@ -103,6 +97,9 @@
 					newInput(codeMap[e.keyCode]);
 				}
 			});
+			
+			nextCubeColor = new ColorTransform();
+			nextInput();
 			
 			mode = EASY;
 		}
