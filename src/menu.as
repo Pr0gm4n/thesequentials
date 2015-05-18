@@ -2,6 +2,9 @@
 	
 	import flash.display.*;
 	import flash.events.*;
+	import flash.media.Sound;
+	import flash.net.URLRequest;
+	import flash.media.SoundChannel;
 	
 	public class menu extends MovieClip {
 		
@@ -12,6 +15,9 @@
 		var intermediateLevelButton;
 		var advnacedLevelButton;
 		var backgroundPicture;
+		
+		protected var music:Sound;
+		protected var channel:SoundChannel;
 
 		public function menu(d:main) {
 			this.document = d;
@@ -32,6 +38,8 @@
 			advnacedLevelButton.x = 940;
 			advnacedLevelButton.y = 800;
 			advnacedLevelButton.addEventListener(MouseEvent.CLICK, advancedButtonClick);
+			
+			music = new Sound(new URLRequest("../Music/menu.mp3"));
 			
 			loadMenu();
 		}
@@ -56,6 +64,8 @@
 			addChild(beginnerLevelButton);
 			addChild(intermediateLevelButton);
 			addChild(advnacedLevelButton);
+			
+			channel = music.play();
 		}
 		
 		private function removeMenu() {
@@ -63,6 +73,8 @@
 			removeChild(beginnerLevelButton);
 			removeChild(intermediateLevelButton);
 			removeChild(advnacedLevelButton);
+			
+			channel.stop();
 		}
 	}
 }
