@@ -17,6 +17,9 @@
 		static const INTERMEDIATE:uint = 1;
 		static const ADVANCED:uint = 2;
 		
+		static const NUMBER_OF_MAPS:uint = 4;
+		static const NUMBER_OF_LAYOUTS:uint = 3;
+		
 		static const cubeColor:Array = [0xff0000, 0xffdab9, 0x007f00];
 		
 		var mode:uint;
@@ -82,7 +85,7 @@
 		}
 		
 		private function setupEasyMode() {
-			game = new Map(this, 400, 50, 8, 8, 2, 3);
+			game = new Map(this, 400, 50, 8, 8, random(1, NUMBER_OF_MAPS), random(1, NUMBER_OF_LAYOUTS));
 			addChild(game);
 			
 			checkList = new mockList;
@@ -356,6 +359,13 @@
 						arduino.writeDigitalPin(6, 1);
 				}
 			}
+		}
+		
+		/**
+		 * Generate a random number in the interval [min,max] (inclusive).
+		 */
+		public static function random(min:Number, max:Number):Number {
+			return Math.floor(Math.random() * (max + 1 - min)) + min;
 		}
 	}
 }
