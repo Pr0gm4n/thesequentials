@@ -14,7 +14,7 @@
 		}
 		
 		override public function toString():String {
-			return "<b>NOT</b> " + expression.toString();
+			return "NOT " + expression.toString();
 		}
 	}
 }
