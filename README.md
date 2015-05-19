@@ -59,7 +59,7 @@ A game environment consists of several files in a folder Maps/map#/ where # is t
 * the goal names in goals.txt (1.png on line 1, 2.png on line 2, ...)
 * the obstacles (a.png, b.png, c.png, ...)
 
-Please note, that __every__ line in the goals.txt needs to be ended by a newline character, even the last line.
+Please note, that __every__ line in the goals.txt needs to be ended by a newline character, even the last line. Also make sure that none of the goal names include digits.
 
 ### Map layouts
 Map layouts can easily be created in the folder Maps/layouts as plain text files. They contain 8 lines of 8 characters to describe an 8x8 grid map. Please note, that __every__ line needs to be ended by a newline character, even the last line. There is 3 types of input fields:
