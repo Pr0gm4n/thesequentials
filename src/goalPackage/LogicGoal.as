@@ -17,6 +17,7 @@
 		private var targetReached:Dictionary;
 		
 		private var goals:Array;
+		private var goalViews:Array;
 
 		public function LogicGoal(rows:uint, cols:uint) {
 			this.rows = rows;
@@ -32,6 +33,7 @@
 			this.targetReached = new Dictionary();
 			
 			this.goals = new Array();
+			this.goalViews = new Array();
 		}
 		
 		public function isGoal(posX:uint, posY:uint, keep:Boolean = true):Boolean {
@@ -43,7 +45,11 @@
 					return expression.evaluate(targetReached);
 				});
 				
-				if (!keep) {
+				if (keep) {
+					for each (var goalView in goalViews) {
+						goalView.update(targetReached);
+					}
+				} else {
 					delete targetReached[target];
 				}
 				return result;
@@ -71,6 +77,12 @@
 					}
 					goals.push(expression);
 				}
+			}
+			for (var goal in goals) {
+				var goalView:ExpressionDisplay = new ExpressionDisplay(goals[goal]);
+				goalView.y = (goals.length / 2 + goal) * goalView.height;
+				addChild(goalView);
+				goalViews.push(goalView);
 			}
 		}
 		
