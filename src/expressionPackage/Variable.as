@@ -15,8 +15,8 @@
 			return (variables[variable] != undefined);
 		}
 		
-		override public function toString():String {
-			return "the " + ((variableName != null) ? variableName : variable);
+		override public function toString(numeric:Boolean = false):String {
+			return ((variableName == null) || numeric ? variable : "the " + variableName);
 		}
 	}
 }

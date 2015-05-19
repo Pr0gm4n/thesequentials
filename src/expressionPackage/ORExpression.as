@@ -15,13 +15,16 @@
 			return (left.evaluate(variables) || right.evaluate(variables));
 		}
 		
-		override public function toString():String {
-			if (left.toString() == "") {
-				return right.toString();
-			} else if (right.toString() == "") {
-				return left.toString();
+		override public function toString(numeric:Boolean = false):String {
+			var l:String = left.toString(numeric);
+			var r:String = right.toString(numeric);
+			
+			if (l == "") {
+				return r;
+			} else if (r == "") {
+				return l;
 			} else {
-				return left.toString() + " OR " + right.toString();
+				return l + " OR " + r;
 			}
 		}
 	}
