@@ -59,7 +59,11 @@
 					var variables = line.replace("!", "").slice(0, -1).split(",");
 					var expression:Expression = new Expression();
 					for each (var variable in variables) {
-						expression = new ORExpression(expression, new Variable(variable));
+						var goalName = variable;
+						for (var name in goalNames) {
+							goalName = goalName.replace(name + 1, goalNames[name].slice(0, -1));
+						}
+						expression = new ORExpression(expression, new Variable(variable, goalName));
 					}
 					if (line.charAt(0) == "!") {
 						expression = new NOTExpression(expression);
@@ -78,10 +82,6 @@
 				}
 				task += goals[goals.length - 1] + ".";
 			};
-			
-			for (var name in goalNames) {
-				task = task.split(name + 1).join(goalNames[name].slice(0, -1));
-			}
 			return task;
 		}
 	}
