@@ -81,8 +81,9 @@
 			for (var goal in goals) {
 				var goalView:ExpressionDisplay = new ExpressionDisplay(goals[goal]);
 				goalView.y = (goals.length / 2 + goal) * goalView.height;
-				addChild(goalView);
+				goalView.update(targetReached);
 				goalViews.push(goalView);
+				addChild(goalView);
 			}
 		}
 		
