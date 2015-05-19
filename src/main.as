@@ -45,8 +45,6 @@
 		var moveDisplayBackgrounds:Array;
 		var moveList;
 		var nextCubeColor;
-		var goButton;
-		var goButtonGreen;
 		public var enableGoButton:Boolean;
 		
 		// delays movement of bug in intermediate/advanced mode
@@ -158,29 +156,20 @@
 			moveList.x = 200;
 			moveList.y = 150;
 			
-			goButton = new goText;
-			goButton.x = 200;
-			goButton.y = 900;
-			
-			goButtonGreen = new goTextGreen;
-			goButtonGreen.x = goButton.x;
-			goButtonGreen.y = goButton.y;
-			
 			enableGoButton = false;
 			
 			addChild(moveList);
 			
 			updateGoButton();
-			
-			movementDelay = new Timer(500, 4);
-			
-			goButtonGreen.addEventListener(MouseEvent.CLICK, clickGoButton);
+			// TODO: replace with hardware button listener
+			//goButtonGreen.addEventListener(MouseEvent.CLICK, clickGoButton);
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
 				if (e.keyCode == 32) { // spacebar
 					clickGoButton();
 				}
 			});
 			
+			movementDelay = new Timer(500, 4);
 			movementDelay.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
 				if (moves.length > 0) {
 					game.move(moves.shift());
@@ -320,17 +309,6 @@
 					ghost.move(moves[i]);
 				}
 				enableGoButton = game.getGoal().isGoal(ghost.posX, ghost.posY, false);
-			}
-			if (moves.length == 4 || enableGoButton) {
-				if (goButton.stage) {
-					removeChild(goButton);
-				}
-				addChild(goButtonGreen);
-			} else {
-				if (goButtonGreen.stage) {
-					removeChild(goButtonGreen);
-				}
-				addChild(goButton);
 			}
 		}
 		
