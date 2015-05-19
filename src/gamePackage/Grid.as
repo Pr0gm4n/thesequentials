@@ -15,7 +15,7 @@
 		public static const DX:uint = 112;
 		public static const DY:uint = 112;
 		
-		private var document:main;
+		protected var document:main;
 		
 		public var rows;
 		public var cols;
