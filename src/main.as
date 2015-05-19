@@ -68,6 +68,8 @@
 			input = new KeyboardInput(this);
 			// */
 			
+			block_newInput = true;
+			
 			mainMenu = new menu(this);
 			addChild(mainMenu);
 			
@@ -97,7 +99,7 @@
 		}
 		
 		private function setupEasyMode() {
-			game = new Map(this, 400, 50, 8, 8, random(1, NUMBER_OF_MAPS), random(1, NUMBER_OF_LAYOUTS));
+			game = new Map(this, 400, 50, 8, 8, random(1, NUMBER_OF_MAPS), 3);//random(1, NUMBER_OF_LAYOUTS)); // TODO: remove comment
 			addChild(game);
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
