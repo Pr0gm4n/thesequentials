@@ -26,8 +26,6 @@
 		
 		protected var block:Vector.<Vector.<Boolean>>;
 		
-		private var message;
-		
 		public function Grid(document:main, rows, cols, addCharacter:Boolean = true, goalX = 7, goalY = 7) {
 			this.document = document;
 			
@@ -46,14 +44,6 @@
 			for (var i:Number = 0; i < cols; i++) {
 				block[i] = new Vector.<Boolean>(rows, true);
 			}
-			
-			this.message = new dialog;
-			message.x = 940;
-			message.y = 500;
-			message.addEventListener(MouseEvent.CLICK, function(e:MouseEvent):void {
-				document.allowInput();
-				document.removeChild(message);
-			});
 		}
 		
 		public function isAccessible(posX:uint, posY:uint):Boolean {
@@ -67,8 +57,10 @@
 		public function move(action:uint):void {
 			character.move(action);
 			if (goal.isGoal(character.posX, character.posY)) {
-				document.addChild(message);
 				document.blockInput();
+				document.addMessage("Well done!", function():void {
+					document.reset();
+				});
 			}
 		}
 		

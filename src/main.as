@@ -13,14 +13,17 @@
 	
 	public class main extends MovieClip{
 		
-		static const EASY:uint = 0;
-		static const INTERMEDIATE:uint = 1;
-		static const ADVANCED:uint = 2;
+		public static const WIDTH = 1920;
+		public static const HEIGHT = 1080;
 		
-		static const NUMBER_OF_MAPS:uint = 4;
-		static const NUMBER_OF_LAYOUTS:uint = 3;
+		public static const EASY:uint = 0;
+		public static const INTERMEDIATE:uint = 1;
+		public static const ADVANCED:uint = 2;
 		
-		static const cubeColor:Array = [0xff0000, 0xffdab9, 0x007f00];
+		public static const NUMBER_OF_MAPS:uint = 4;
+		public static const NUMBER_OF_LAYOUTS:uint = 3;
+		
+		public static const cubeColor:Array = [0xff0000, 0xffdab9, 0x007f00];
 		
 		var mode:uint;
 		var block_newInput:Boolean;
@@ -45,6 +48,8 @@
 		var moveDisplayBackgrounds:Array;
 		var moveList;
 		var nextCubeColor;
+		
+		public var clickGoButton:Function;
 		public var enableGoButton:Boolean;
 		
 		// delays movement of bug in intermediate/advanced mode
@@ -79,6 +84,15 @@
 				arduino.setPinMode(4, Arduino.OUTPUT);
 				arduino.setPinMode(5, Arduino.OUTPUT);
 				arduino.setPinMode(6, Arduino.OUTPUT);
+			});
+			
+			setClickGoButton(function():void {});
+			// TODO: replace with hardware button listener
+			//goButtonGreen.addEventListener(MouseEvent.CLICK, clickGoButton);
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
+				if (e.keyCode == 32) { // spacebar
+					clickGoButton();
+				}
 			});
 		}
 		
@@ -154,11 +168,12 @@
 			addChild(moveList);
 			
 			updateGoButton();
-			// TODO: replace with hardware button listener
-			//goButtonGreen.addEventListener(MouseEvent.CLICK, clickGoButton);
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
-				if (e.keyCode == 32) { // spacebar
-					clickGoButton();
+			setClickGoButton(function():void {
+				if (moves.length == 4 || enableGoButton) {
+					movementDelay.start();
+					blockInput();
+					
+					input.last = -1;
 				}
 			});
 			
@@ -282,12 +297,17 @@
 			}
 		}
 		
-		private function clickGoButton(e:MouseEvent = null):void {
-			if (moves.length == 4 || enableGoButton) {
-				movementDelay.start();
-				blockInput();
-				
-				input.last = -1;
+		public function setClickGoButton(callback:Function, context:Object = null, args:Array = null):void {
+			this.clickGoButton = function(e:Object = null):void {
+				callback.apply(context, args);
+			}
+		}
+		
+		public function setClickGoButtonOnce(callback:Function, context:Object = null, args:Array = null):void {
+			var tmpClickGoButton:Function = this.clickGoButton;
+			this.clickGoButton = function(e:Object = null):void {
+				callback.apply(context, args);
+				this.clickGoButton = tmpClickGoButton;
 			}
 		}
 		
@@ -330,6 +350,24 @@
 						arduino.writeDigitalPin(6, 1);
 				}
 			}
+		}
+		
+		public function addMessage(message:String, callback:Function = null, context:Object = null, args:Array = null):void {
+			var box = new dialog;
+			box.x = WIDTH / 2;
+			box.y = HEIGHT / 2;
+			addChild(box);
+			setClickGoButtonOnce(function():void {
+				removeChild(box);
+				if (callback != null) {
+					callback.apply(context, args);
+				}
+			});
+		}
+		
+		public function reset():void {
+			// TODO: reload menu, cleanup current level
+			trace("TODO: reset");
 		}
 		
 		/**
