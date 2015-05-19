@@ -86,13 +86,6 @@
 			game = new Map(this, 400, 50, 8, 8, random(1, NUMBER_OF_MAPS), random(1, NUMBER_OF_LAYOUTS));
 			addChild(game);
 			
-			checkList = new mockList;
-			checkList.x = 1350;
-			checkList.y = 50;
-			addChild(checkList);
-			
-			block_newInput = false;
-			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
 				if (e.keyCode in codeMap) {
 					newInput(codeMap[e.keyCode]);
@@ -108,7 +101,7 @@
 		private function setupIntermediateMode() {
 			setupAdvancedMode();
 			
-			game.setSpeed(1);
+			game.setSpeed(1.0);
 			movementDelay.delay = 1000;
 			
 			var ghostDelay:Timer = new Timer(8000);
