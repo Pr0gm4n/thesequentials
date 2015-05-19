@@ -97,6 +97,9 @@
 			var goalNames:Array = file.data.split("\n");
 			logicGoal.goalNames = goalNames;
 			logicGoal.parse();
+			logicGoal.x = cols * Grid.DX + 50;
+			logicGoal.y = rows * Grid.DY / 2;
+			addChild(logicGoal);
 			addMessage(logicGoal.toString(), 40, function():void {
 				document.allowInput();
 			});
