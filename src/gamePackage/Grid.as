@@ -58,7 +58,7 @@
 			character.move(action);
 			if (goal.isGoal(character.posX, character.posY)) {
 				document.blockInput();
-				document.addMessage("Well done!", function():void {
+				document.addMessage("Well done!", 100, function():void {
 					document.reset();
 				});
 			}

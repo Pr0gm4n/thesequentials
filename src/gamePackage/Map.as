@@ -9,9 +9,6 @@
 	import flash.media.Sound;
 	import flash.media.SoundChannel;
 	import flash.media.SoundTransform;
-	import flash.text.TextField;
-	import flash.text.TextFormat;
-	import flash.text.TextFieldAutoSize;
 	
 	public class Map extends Grid {
 		public static const MUSICPATH:String = "../Music/";
@@ -102,18 +99,7 @@
 			for (var name in goalNames) {
 				task = task.split(name + 1).join(goalNames[name].slice(0, -1));
 			}
-			var d = new dialog;
-			var f:flash.text.TextFormat = new flash.text.TextFormat("a bug's life", 30);
-			var tf:flash.text.TextField = new flash.text.TextField();
-			tf.embedFonts = true;
-			tf.defaultTextFormat = f;
-            tf.autoSize = flash.text.TextFieldAutoSize.CENTER;
-			tf.x = main.WIDTH / 2;
-			tf.y = main.HEIGHT / 2;
-			tf.htmlText = task;
-			document.addChild(tf);
-			document.setClickGoButtonOnce(function():void {
-				document.removeChild(tf);
+			document.addMessage(task, 40, function():void {
 				document.allowInput();
 			});
 		}

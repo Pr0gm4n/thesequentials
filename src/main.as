@@ -354,12 +354,27 @@
 			}
 		}
 		
-		public function addMessage(message:String, callback:Function = null, context:Object = null, args:Array = null):void {
+		public function addMessage(message:String, fontSize:Number = 30, callback:Function = null, context:Object = null, args:Array = null):void {
 			var box = new dialog;
-			box.x = WIDTH / 2;
-			box.y = HEIGHT / 2;
+			box.x = game.x + game.cols * Grid.DX / 2;
+			box.y = game.y + game.rows * Grid.DY / 2;
+			
+			var textField:TextField = new TextField();
+			textField.embedFonts = true;
+			textField.defaultTextFormat = new TextFormat("a bug's life", fontSize);
+            textField.autoSize = flash.text.TextFieldAutoSize.CENTER;
+			textField.x = box.x;
+			textField.y = box.y - fontSize / 2;
+			textField.htmlText = message;
+			
+			box.width = Math.max(textField.width + 20, 1100);
+			box.height = Math.max(textField.height + 20, 450);
+			
 			addChild(box);
+			addChild(textField);
+			
 			setClickGoButtonOnce(function():void {
+				removeChild(textField);
 				removeChild(box);
 				if (callback != null) {
 					callback.apply(context, args);
