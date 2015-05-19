@@ -67,7 +67,7 @@
 			if (goals.length > 0) {
 				var result:String = "Get " + goals.slice(0, -1).join(", ");
 				if (goals.length > 1) {
-					result +=  " and ";
+					result +=  " <b>AND</b> ";
 				}
 				return result + goals[goals.length - 1] + ".";
 			} else return "";

@@ -97,7 +97,13 @@
 			for (var name in goalNames) {
 				task = task.split(name + 1).join(goalNames[name].slice(0, -1));
 			}
-			trace(task);
+			var f:flash.text.TextFormat = new flash.text.TextFormat("a bug's life", 30);
+			var tf:flash.text.TextField = new flash.text.TextField();
+			tf.embedFonts = true;
+			tf.defaultTextFormat = f;
+            tf.autoSize = flash.text.TextFieldAutoSize.LEFT;
+			tf.htmlText = task;
+			document.addChild(tf);
 		}
 	}
 }

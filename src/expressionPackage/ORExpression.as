@@ -21,7 +21,7 @@
 			} else if (right.toString() == "") {
 				return left.toString();
 			} else {
-				return left.toString() + " OR " + right.toString();
+				return left.toString() + " <b>OR</b> " + right.toString();
 			}
 		}
 	}
