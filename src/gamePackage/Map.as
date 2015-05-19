@@ -75,6 +75,10 @@
 							block[x][y] = true;
 						} else if (row[x].match(/[1-9]/) != null) {
 							logicGoal.setPos(x, y, row[x]);
+						} else if (row[x].match(/X/) != null) {
+							character.posX = x;
+							character.posY = y;
+							character.updatePosition(false);
 						}
 						image.x = x * Grid.DX;
 						image.y = y * Grid.DY;

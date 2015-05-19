@@ -5,6 +5,6 @@ a a  a a
   aaaa  
  a    a 
  a aa a 
-   aa   
+X  aa   
 1
 

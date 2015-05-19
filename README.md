@@ -66,6 +66,7 @@ Map layouts can easily be created in the folder Maps/layouts as plain text files
 * space: a standard field
 * a letter (a, b, c, ...): an obstacle, corresponding to a.png, b.png, ... in the same folder
 * a number (1, 2, 3, ...): a goal that needs to be reached
+* a single capital X as the starting position
 
 ### Defining goals
 Below the actual map, goals can be defined in any number of following rows with a comprehensible syntax. Separate lines are goals that all need to be achieved (logical AND), whereas comma-separated targets on the same line are achieved as soon as one of the targets is achieved (logical OR). If a line begins with an "!" (exclamation point symbol), it's meaning is inverted (logical NOT). Please note, that __every__ line needs to be ended by a newline character, even the last line. A sample input may look like this:
