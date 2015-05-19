@@ -3,8 +3,9 @@
 	import expressionPackage.*;
 	
 	import flash.utils.Dictionary;
+	import flash.display.MovieClip;
 	
-	public class LogicGoal extends Goal {
+	public class LogicGoal extends MovieClip implements Goal {
 		
 		private var rows;
 		private var cols;
@@ -33,7 +34,7 @@
 			this.goals = new Array();
 		}
 		
-		override public function isGoal(posX:uint, posY:uint, keep:Boolean = true):Boolean {
+		public function isGoal(posX:uint, posY:uint, keep:Boolean = true):Boolean {
 			var target = targets[posX][posY];
 			if (target != null && targetReached[target] == undefined) {
 				targetReached[target] = true;

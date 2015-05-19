@@ -1,6 +1,6 @@
 ﻿package goalPackage {
 	
-	public class SimpleGoal extends Goal {
+	public class SimpleGoal implements Goal {
 		
 		private var goalX:uint;
 		private var goalY:uint;
@@ -12,11 +12,11 @@
 			this.type = type;
 		}
 		
-		override public function isGoal(posX:uint, posY:uint, keep:Boolean = true):Boolean {
+		public function isGoal(posX:uint, posY:uint, keep:Boolean = true):Boolean {
 			return (posX == goalX && posY == goalY);
 		}
 		
-		override public function toString():String {
+		public function toString():String {
 			return "Get " + type + ".";
 		}
 	}
