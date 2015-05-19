@@ -1,6 +1,6 @@
 ﻿package expressionPackage {
 	
-	import flash.display.MovieClip;
+	import flash.display.*;
 	import flash.utils.Dictionary;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
@@ -10,15 +10,18 @@
 		
 		private var expression:Expression;
 		
-		private static const format = new TextFormat("a bug's life", 30);
+		private static const fontSize:uint = 30;
+		private static const format:TextFormat = new TextFormat("a bug's life", fontSize);
 		
 		private var textField:TextField;
-		private var tick:MovieClip;
+		private var checkbox;
+		private var tick;
 
 		public function ExpressionDisplay(expression:Expression) {
 			this.expression = expression;
 			
 			textField = new TextField();
+			textField.y -= fontSize / 2;
 			textField.embedFonts = true;
 			textField.defaultTextFormat = format;
             textField.autoSize = TextFieldAutoSize.LEFT;
@@ -28,7 +31,14 @@
 			this.height = textField.height;
 			this.width = textField.width;
 			
-			this.tick = new MovieClip(); // TODO: show a tick
+			this.checkbox = new goalCheckbox;
+			checkbox.x = textField.x + textField.width + 15;
+			checkbox.y = 0;
+			addChild(checkbox);
+			
+			this.tick = new goalCheckboxTick;
+			tick.x = checkbox.x;
+			tick.y = checkbox.y;
 		}
 		
 		public function update(variables:Dictionary):void {
@@ -39,6 +49,15 @@
 			if (!checked && tick.stage) {
 				removeChild(tick);
 			}
+		}
+		
+		public function getCheckboxX():uint {
+			return checkbox.x;
+		}
+		
+		public function setCheckboxX(x:uint):void {
+			checkbox.x = x;
+			tick.x = x;
 		}
 	}
 }

@@ -78,12 +78,17 @@
 					goals.push(expression);
 				}
 			}
+			var xMax:uint = 0;
 			for (var goal in goals) {
 				var goalDisplay:ExpressionDisplay = new ExpressionDisplay(goals[goal]);
+				xMax = Math.max(xMax, goalDisplay.getCheckboxX());
 				goalDisplay.y = (goal - goals.length / 2) * (goalDisplay.height + 10);
 				goalDisplay.update(targetReached);
 				goalDisplays.push(goalDisplay);
 				addChild(goalDisplay);
+			}
+			for each (var goalDisplay in goalDisplays) {
+				goalDisplay.setCheckboxX(xMax);
 			}
 		}
 		
