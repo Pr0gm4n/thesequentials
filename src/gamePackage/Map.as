@@ -83,7 +83,7 @@
 				}
 			}
 			
-			logicGoal.parse(structure.slice(rows));
+			logicGoal.input = structure.slice(rows);
 			file = new URLLoader();
 			file.addEventListener(Event.COMPLETE, loadGoalNames);
 			file.load(new URLRequest(path + GOALNAMES));
@@ -94,12 +94,10 @@
 		}
 		
 		private function loadGoalNames(e:Event = null) {
-			var goalNames = file.data.split("\n");
-			var task = logicGoal.toString();
-			for (var name in goalNames) {
-				task = task.split(name + 1).join(goalNames[name].slice(0, -1));
-			}
-			addMessage(task, 40, function():void {
+			var goalNames:Array = file.data.split("\n");
+			logicGoal.goalNames = goalNames;
+			logicGoal.parse();
+			addMessage(logicGoal.toString(), 40, function():void {
 				document.allowInput();
 			});
 		}

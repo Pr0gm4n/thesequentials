@@ -9,6 +9,9 @@
 		private var rows;
 		private var cols;
 		
+		public var input:Array;
+		public var goalNames:Array;
+		
 		private var targets:Vector.<Vector.<String>>;
 		private var targetReached:Dictionary;
 		
@@ -17,6 +20,9 @@
 		public function LogicGoal(rows:uint, cols:uint) {
 			this.rows = rows;
 			this.cols = cols;
+			
+			this.input = new Array();
+			this.goalNames = new Array();
 			
 			this.targets = new Vector.<Vector.<String>>(cols, true);
 			for (var i:Number = 0; i < rows; i++) {
@@ -47,7 +53,7 @@
 			targets[x][y] = target;
 		}
 		
-		public function parse(input:Array):void {
+		public function parse():void {
 			for each (var line in input) {
 				if (line.length > 1) {
 					var variables = line.replace("!", "").slice(0, -1).split(",");
@@ -64,13 +70,19 @@
 		}
 		
 		override public function toString():String {
+			var task = "";
 			if (goals.length > 0) {
-				var result:String = "Get " + goals.slice(0, -1).join(", ");
+				task = "Get " + goals.slice(0, -1).join(", ");
 				if (goals.length > 1) {
-					result +=  " AND ";
+					task +=  " AND ";
 				}
-				return result + goals[goals.length - 1] + ".";
-			} else return "";
+				task += goals[goals.length - 1] + ".";
+			};
+			
+			for (var name in goalNames) {
+				task = task.split(name + 1).join(goalNames[name].slice(0, -1));
+			}
+			return task;
 		}
 	}
 }
