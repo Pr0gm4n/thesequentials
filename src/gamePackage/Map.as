@@ -99,7 +99,7 @@
 			for (var name in goalNames) {
 				task = task.split(name + 1).join(goalNames[name].slice(0, -1));
 			}
-			document.addMessage(task, 40, function():void {
+			addMessage(task, 40, function():void {
 				document.allowInput();
 			});
 		}

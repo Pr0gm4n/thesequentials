@@ -4,7 +4,6 @@
 	
 	import flash.display.*;
 	import flash.events.*;
-	import flash.text.*;
 	import flash.utils.*;
 	import flash.geom.ColorTransform;
 	
@@ -352,34 +351,6 @@
 						arduino.writeDigitalPin(6, 1);
 				}
 			}
-		}
-		
-		public function addMessage(message:String, fontSize:Number = 30, callback:Function = null, context:Object = null, args:Array = null):void {
-			var box = new dialog;
-			box.x = game.x + game.cols * Grid.DX / 2;
-			box.y = game.y + game.rows * Grid.DY / 2;
-			
-			var textField:TextField = new TextField();
-			textField.embedFonts = true;
-			textField.defaultTextFormat = new TextFormat("a bug's life", fontSize);
-            textField.autoSize = flash.text.TextFieldAutoSize.CENTER;
-			textField.x = box.x;
-			textField.y = box.y - fontSize / 2;
-			textField.htmlText = message;
-			
-			box.width = Math.max(textField.width + 20, 1100);
-			box.height = Math.max(textField.height + 20, 450);
-			
-			addChild(box);
-			addChild(textField);
-			
-			setClickGoButtonOnce(function():void {
-				removeChild(textField);
-				removeChild(box);
-				if (callback != null) {
-					callback.apply(context, args);
-				}
-			});
 		}
 		
 		public function reset():void {
