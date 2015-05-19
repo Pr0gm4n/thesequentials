@@ -345,5 +345,20 @@
 		public static function random(min:Number, max:Number):Number {
 			return Math.floor(Math.random() * (max + 1 - min)) + min;
 		}
+		
+		/**
+		 * Delay the call to a function in milliseconds.
+		 */
+		public static function delayCallback(delay:uint, callback:Function, context:Object = null, args:Array = null):void {
+			var t:Timer = new Timer(delay, 1);
+			var onComplete:Function = function():void {
+				// cleanup
+				t.removeEventListener(TimerEvent.TIMER_COMPLETE, onComplete);
+				
+				callback.apply(context, args);
+			};
+			t.addEventListener(TimerEvent.TIMER_COMPLETE, onComplete);
+			t.start();
+		}
 	}
 }

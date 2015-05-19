@@ -88,7 +88,7 @@
 			
 			addChild(character);
 			
-			channel = music.play(0, 10000, new SoundTransform(0.2, 0));
+			channel = music.play(0, 10000, new SoundTransform(0.15, 0));
 			
 			// show goal image in the mock list
 			image = new Loader();

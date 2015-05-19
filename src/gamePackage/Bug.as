@@ -20,6 +20,8 @@
 		public static const ACTION_5:uint = 5;
 		public static const ACTION_6:uint = 6;
 		
+		public static const ANIMATION_DELAY:uint = 250;
+		
 		public static const SOUNDPATH:String = "../Sounds/";
 		public static const SOUND_FILEEXTENSION:String = ".mp3";
 		
@@ -140,12 +142,14 @@
 		
 		public function turnLeft():void {
 			direction = (direction + 3) % 4;
-			TweenMax.to(this, 0.8 / speed, {
-				shortRotation: {
-					rotation: angle -= 90
-				}
-			});
-			angle %= 360;
+			main.delayCallback(ANIMATION_DELAY, function():void {
+				TweenMax.to(this, 0.8 / speed, {
+					shortRotation: {
+						rotation: angle -= 90
+					}
+				});
+				angle %= 360;
+			}, this);
 			
 			if (alpha == 1.0) {
 				turnSound.play();
@@ -156,12 +160,14 @@
 		
 		public function turnRight():void {
 			direction = (direction + 1) % 4;
-			TweenMax.to(this, 0.8 / speed, {
-				shortRotation: {
-					rotation: angle += 90
-				}
-			});
-			angle %= 360;
+			main.delayCallback(ANIMATION_DELAY, function():void {
+				TweenMax.to(this, 0.8 / speed, {
+					shortRotation: {
+						rotation: angle += 90
+					}
+				});
+				angle %= 360;
+			}, this);
 			
 			if (alpha == 1.0) {
 				turnSound.play();
@@ -172,10 +178,12 @@
 		
 		public function updatePosition(animate:Boolean = true):void {
 			if (animate) {
-				TweenMax.to(this, 1 / speed, {
-					x: (posX + 0.5) * Grid.DX,
-					y: (posY + 0.5) * Grid.DY
-				});
+				main.delayCallback(ANIMATION_DELAY - 50, function():void {
+					TweenMax.to(this, 1.0 / speed, {
+						x: (posX + 0.5) * Grid.DX,
+						y: (posY + 0.5) * Grid.DY
+					});
+				}, this);
 			} else {
 				this.x = (posX + 0.5) * Grid.DX;
 				this.y = (posY + 0.5) * Grid.DY;
@@ -183,14 +191,16 @@
 		}
 		
 		private function noAccess() {
-			TweenMax.to(this, 0.2 / speed, {
-				x: (posX + 0.5 + 0.5 * ((direction + 1) % 2)) * Grid.DX,
-				y: (posY + 0.5 + 0.5 * (direction % 2)) * Grid.DY
-			});
-			TweenMax.to(this, 0.5 / speed, {
-				x: (posX + 0.5) * Grid.DX,
-				y: (posY + 0.5) * Grid.DY
-			});
+			main.delayCallback(ANIMATION_DELAY, function():void {
+				TweenMax.to(this, 0.2 / speed, {
+					x: (posX + 0.5 + 0.5 * ((direction + 1) % 2)) * Grid.DX,
+					y: (posY + 0.5 + 0.5 * (direction % 2)) * Grid.DY
+				});
+				TweenMax.to(this, 0.5 / speed, {
+					x: (posX + 0.5) * Grid.DX,
+					y: (posY + 0.5) * Grid.DY
+				});
+			}, this);
 			
 			if (alpha == 1.0) {
 				bumpSound.play();
