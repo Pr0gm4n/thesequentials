@@ -22,9 +22,6 @@
 		
 		public static const ANIMATION_DELAY:uint = 250;
 		
-		public static const SOUNDPATH:String = "../Sounds/";
-		public static const SOUND_FILEEXTENSION:String = ".mp3";
-		
 		public var posX:uint;
 		public var posY:uint;
 		
@@ -66,9 +63,9 @@
 			this.speed = speed;
 			this.alpha = alpha;
 			
-			forwardSound = new Sound(new URLRequest(SOUNDPATH + "ant_fwd" + SOUND_FILEEXTENSION));
-			turnSound = new Sound(new URLRequest(SOUNDPATH + "ant_turn" + SOUND_FILEEXTENSION));
-			bumpSound = new Sound(new URLRequest(SOUNDPATH + "ant_wall" + SOUND_FILEEXTENSION));
+			forwardSound = new Sound(new URLRequest(Grid.SOUNDPATH + "ant_fwd" + Grid.SOUND_FILEEXTENSION));
+			turnSound = new Sound(new URLRequest(Grid.SOUNDPATH + "ant_turn" + Grid.SOUND_FILEEXTENSION));
+			bumpSound = new Sound(new URLRequest(Grid.SOUNDPATH + "ant_wall" + Grid.SOUND_FILEEXTENSION));
 			
 			this.last = UNDO;
 			

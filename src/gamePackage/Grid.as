@@ -7,8 +7,13 @@
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.text.TextFieldAutoSize;
+	import flash.media.Sound;
+	import flash.net.URLRequest;
 	
 	public class Grid extends MovieClip {
+		
+		public static const SOUNDPATH:String = "../Sounds/";
+		public static const SOUND_FILEEXTENSION:String = ".mp3";
 
 		public static const EAST:uint = 0;
 		public static const SOUTH:uint = 1;
@@ -29,6 +34,8 @@
 		
 		protected var block:Vector.<Vector.<Boolean>>;
 		
+		protected var welldone:Sound;
+		
 		public function Grid(document:main, rows, cols, addCharacter:Boolean = true, goalX = 7, goalY = 7) {
 			this.document = document;
 			
@@ -47,6 +54,7 @@
 			for (var i:Number = 0; i < cols; i++) {
 				block[i] = new Vector.<Boolean>(rows, true);
 			}
+			this.welldone = new Sound(new URLRequest(SOUNDPATH + "welldone" + SOUND_FILEEXTENSION));
 		}
 		
 		public function isAccessible(posX:uint, posY:uint):Boolean {
@@ -64,6 +72,7 @@
 				addMessage("Well done!", 100, function():void {
 					document.reset();
 				});
+				welldone.play();
 			}
 		}
 		
