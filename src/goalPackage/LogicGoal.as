@@ -79,15 +79,16 @@
 				}
 			}
 			var xMax:uint = 0;
+			var goalDisplay:ExpressionDisplay;
 			for (var goal in goals) {
-				var goalDisplay:ExpressionDisplay = new ExpressionDisplay(goals[goal]);
+				goalDisplay = new ExpressionDisplay(goals[goal]);
 				xMax = Math.max(xMax, goalDisplay.getCheckboxX());
 				goalDisplay.y = (goal - goals.length / 2) * (goalDisplay.height + 10);
 				goalDisplay.update(targetReached, false);
 				goalDisplays.push(goalDisplay);
 				addChild(goalDisplay);
 			}
-			for each (var goalDisplay in goalDisplays) {
+			for each (goalDisplay in goalDisplays) {
 				goalDisplay.setCheckboxX(xMax);
 			}
 		}
