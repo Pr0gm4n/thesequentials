@@ -83,7 +83,7 @@
 				var goalDisplay:ExpressionDisplay = new ExpressionDisplay(goals[goal]);
 				xMax = Math.max(xMax, goalDisplay.getCheckboxX());
 				goalDisplay.y = (goal - goals.length / 2) * (goalDisplay.height + 10);
-				goalDisplay.update(targetReached);
+				goalDisplay.update(targetReached, false);
 				goalDisplays.push(goalDisplay);
 				addChild(goalDisplay);
 			}

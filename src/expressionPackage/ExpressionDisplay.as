@@ -5,8 +5,13 @@
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import flash.text.TextFieldAutoSize;
+	import flash.media.Sound;
+	import flash.net.URLRequest;
 	
 	public class ExpressionDisplay extends MovieClip {
+		
+		public static const SOUNDPATH:String = "../Sounds/";
+		public static const SOUND_FILEEXTENSION:String = ".mp3";
 		
 		private var expression:Expression;
 		
@@ -16,6 +21,8 @@
 		private var textField:TextField;
 		private var checkbox;
 		private var tick;
+		
+		private var achieveGoal:Sound;
 
 		public function ExpressionDisplay(expression:Expression) {
 			this.expression = expression;
@@ -39,12 +46,17 @@
 			this.tick = new goalCheckboxTick;
 			tick.x = checkbox.x;
 			tick.y = checkbox.y;
+			
+			this.achieveGoal = new Sound(new URLRequest(SOUNDPATH + "goal_achieve" + SOUND_FILEEXTENSION));
 		}
 		
-		public function update(variables:Dictionary):void {
+		public function update(variables:Dictionary, playSound:Boolean = true):void {
 			var checked:Boolean = expression.evaluate(variables);
 			if (checked && !tick.stage) {
 				addChild(tick);
+				if (playSound) {
+					achieveGoal.play();
+				}
 			}
 			if (!checked && tick.stage) {
 				removeChild(tick);
