@@ -178,7 +178,7 @@
 		
 		public function updatePosition(animate:Boolean = true):void {
 			if (animate) {
-				main.delayCallback(ANIMATION_DELAY - 50, function():void {
+				main.delayCallback(ANIMATION_DELAY - 25, function():void {
 					TweenMax.to(this, 1.0 / speed, {
 						x: (posX + 0.5) * Grid.DX,
 						y: (posY + 0.5) * Grid.DY
