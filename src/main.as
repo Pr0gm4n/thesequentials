@@ -15,12 +15,12 @@
 		public static const WIDTH = 1920;
 		public static const HEIGHT = 1080;
 		
-		public static const EASY:uint = 0;
-		public static const INTERMEDIATE:uint = 1;
-		public static const ADVANCED:uint = 2;
+		public static const EASY:uint = 1;
+		public static const INTERMEDIATE:uint = 2;
+		public static const ADVANCED:uint = 3;
 		
 		public static const NUMBER_OF_MAPS:uint = 4;
-		public static const NUMBER_OF_LAYOUTS:uint = 3;
+		public static const NUMBER_OF_LAYOUTS:uint = 1;
 		
 		public static const cubeColor:Array = [0xff0000, 0xffdab9, 0x007f00];
 		
@@ -98,7 +98,7 @@
 		}
 		
 		private function setupEasyMode() {
-			game = new Map(this, 400, 50, 8, 8, random(1, NUMBER_OF_MAPS), 3);//random(1, NUMBER_OF_LAYOUTS)); // TODO: remove comment
+			game = new Map(this, 400, 50, 8, 8, random(1, NUMBER_OF_MAPS), mode, random(1, NUMBER_OF_LAYOUTS));
 			addChild(game);
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
@@ -109,8 +109,6 @@
 			
 			nextCubeColor = new ColorTransform();
 			nextInput();
-			
-			mode = EASY;
 		}
 		
 		private function setupIntermediateMode() {
@@ -146,8 +144,6 @@
 				}
 			});
 			ghostDelay.start();
-			
-			mode = INTERMEDIATE;
 		}
 		
 		private function setupAdvancedMode() {
@@ -193,14 +189,13 @@
 				
 				addMoveDisplayBackground(200, 300);
 			});
-			
-			mode = ADVANCED;
 		}
 		
 		/**
 		 * Start the game in easy mode: bug moves in real time.
 		 */
 		public function startEasyMode() {
+			mode = EASY;
 			setupEasyMode();
 		}
 		
@@ -208,6 +203,7 @@
 		 * Start the game in intermediate mode: bug moves every 4 inputs and has a ghost.
 		 */
 		public function startIntermediateMode() {
+			mode = INTERMEDIATE;
 			setupIntermediateMode();
 		}
 		
@@ -215,6 +211,7 @@
 		 * Start the game in advanced mode: bug moves every 4 inputs.
 		 */
 		public function startAdvancedMode() {
+			mode = ADVANCED;
 			setupAdvancedMode();
 		}
 		

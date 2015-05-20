@@ -30,7 +30,7 @@
 		protected var music:Sound;
 		protected var channel:SoundChannel;
 
-		public function Map(document:main, x:uint, y:uint, rows:uint, cols:uint, map:uint, layout:uint = 1) {
+		public function Map(document:main, x:uint, y:uint, rows:uint, cols:uint, map:uint, level:uint, layout:uint = 1) {
 			super(document, rows, cols, false);
 			this.x = x;
 			this.y = y;
@@ -42,7 +42,7 @@
 			
 			this.file = new URLLoader();
 			file.addEventListener(Event.COMPLETE, loadMap);
-			file.load(new URLRequest(MAPPATH + LAYOUT_FOLDER + layout + LAYOUT_FILEEXTENSION));
+			file.load(new URLRequest(MAPPATH + LAYOUT_FOLDER + level + "/" + layout + LAYOUT_FILEEXTENSION));
 			
 			this.music = new Sound(new URLRequest(MUSICPATH + map + MUSIC_FILEEXTENSION));
 			
