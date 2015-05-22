@@ -22,7 +22,7 @@
 		public static const NUMBER_OF_MAPS:uint = 4;
 		public static const NUMBER_OF_LAYOUTS:uint = 1;
 		
-		public static const cubeColor:Array = [0xff0000, 0xffdab9, 0x007f00];
+		public static const cubeColors:Array = [0xff0000, 0xffdab9, 0x007f00];
 		
 		var mode:uint;
 		var block_newInput:Boolean;
@@ -278,19 +278,20 @@
 		
 		private function nextInput():void {
 			if (input.next != -1) {
-				input.next = (input.last + 1) % cubeColor.length;
+				input.next = (input.last + 1) % cubeColors.length;
 				
-				nextCubeColor.color = cubeColor[input.next];
+				nextCubeColor.color = cubeColors[input.next];
+				nextPlayerSounds[input.next].play();
 				updateArduino();
 			}
 		}
 		
 		private function lastInput():void {
 			if (input.next != -1) {
-				input.next = (input.last + cubeColor.length) % cubeColor.length;
-				input.last = (input.last + cubeColor.length - 1) % cubeColor.length;
+				input.next = (input.last + cubeColors.length) % cubeColors.length;
+				input.last = (input.last + cubeColors.length - 1) % cubeColors.length;
 				
-				nextCubeColor.color = cubeColor[input.next];
+				nextCubeColor.color = cubeColors[input.next];
 				updateArduino();
 			}
 		}
@@ -338,10 +339,10 @@
 				arduino.writeDigitalPin(5, 0);
 				arduino.writeDigitalPin(6, 0);
 				switch(nextCubeColor.color) {
-					case cubeColor[0]:
+					case cubeColors[0]:
 						arduino.writeDigitalPin(4, 1);
 						break;
-					case cubeColor[1]:
+					case cubeColors[1]:
 						arduino.writeDigitalPin(5, 1);
 						break;
 					default:
