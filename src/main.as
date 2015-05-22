@@ -122,6 +122,9 @@
 			
 			nextCubeColor = new ColorTransform();
 			nextInput();
+			
+			moveDisplayBackgrounds = new Array();
+			addMoveDisplayBackground(200, 300);
 		}
 		
 		private function setupIntermediateMode() {
@@ -164,10 +167,8 @@
 			
 			game.setSpeed(1.2);
 			
-			moves = [];
-			moveDisplayArray = [];
-			moveDisplayBackgrounds = [];
-			addMoveDisplayBackground(200, 300);
+			moves = new Array();
+			moveDisplayArray = new Array();
 			
 			moveList = new inputText;
 			moveList.x = 200;
@@ -237,7 +238,16 @@
 			if (block_newInput) return;
 			if (mode == EASY) {
 				game.move(input);
-				nextInput();
+				if (input == Bug.UNDO) {
+					lastInput();
+				} else {
+					nextInput();
+					if (moveDisplayBackgrounds.length > 0) {
+						removeChild(moveDisplayBackgrounds.pop());
+						trace(moveDisplayBackgrounds.length);
+					}
+					addMoveDisplayBackground(200, 300);
+				}
 			} else { // intermediate/advanced mode
 				if (input == Bug.UNDO) {
 					if (moves.length > 0) {
