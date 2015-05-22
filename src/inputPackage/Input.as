@@ -21,7 +21,7 @@
 				cube = (input - tmp) / Bug.MOVES;
 				
 				if (cube == last) {
-					document.newInput(0);
+					document.newInput(Bug.UNDO);
 				}
 			}
 			

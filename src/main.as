@@ -294,7 +294,6 @@
 				input.next = (input.last + 1) % cubeColors.length;
 				
 				nextCubeColor.color = cubeColors[input.next];
-				nextPlayerSounds[input.next].play();
 				updateArduino();
 			}
 		}
@@ -344,6 +343,8 @@
 			background.transform.colorTransform = nextCubeColor;
 			moveDisplayBackgrounds.push(background);
 			addChild(background);
+			
+			nextPlayerSounds[input.next].play();
 		}
 		
 		private function updateArduino():void {
