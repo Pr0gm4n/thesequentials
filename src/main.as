@@ -9,6 +9,8 @@
 	
 	import net.eriksjodin.arduino.Arduino;
 	import net.eriksjodin.arduino.events.ArduinoEvent;
+	import flash.media.Sound;
+	import flash.net.URLRequest;
 	
 	public class main extends MovieClip{
 		
@@ -23,6 +25,12 @@
 		public static const NUMBER_OF_LAYOUTS:uint = 1;
 		
 		public static const cubeColors:Array = [0xff0000, 0xffdab9, 0x007f00];
+		public static const cubeColorStrings:Array = ["red", "yellow", "green", "blue"];
+		public static const SOUNDPATH:String = "../Sounds/";
+		public static const NEXTPLAYERSOUND_PREFIX:String = "next_";
+		public static const NEXTPLAYERSOUND_FILEEXTENSION:String = ".mp3";
+		
+		var nextPlayerSounds:Array;
 		
 		var mode:uint;
 		var block_newInput:Boolean;
@@ -95,6 +103,11 @@
 					clickGoButton();
 				}
 			});
+			
+			nextPlayerSounds = new Array();
+			for each (var color in cubeColorStrings) {
+				nextPlayerSounds.push(new Sound(new URLRequest(SOUNDPATH + NEXTPLAYERSOUND_PREFIX + color + NEXTPLAYERSOUND_FILEEXTENSION)));
+			}
 		}
 		
 		private function setupEasyMode() {
