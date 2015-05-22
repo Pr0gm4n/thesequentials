@@ -17,9 +17,11 @@
 		public static const LAYOUT_FOLDER:String = "layouts/";
 		public static const LAYOUT_FILEEXTENSION:String = ".txt";
 		public static const MAPFOLDER_PREFIX:String = "map";
-		public static const BACKGROUND:String = "background.png";
 		public static const BASETILE:String = "base";
 		public static const TILE_FILEEXTENSION:String = ".png";
+		public static const BACKGROUND:String = "background.png";
+		public static const OTHERPATH:String = "../Other/";
+		public static const TUTORIAL:String = "tutorial.png";
 		public static const GOALNAMES:String = "goals.txt";
 		
 		private var path;
@@ -87,12 +89,20 @@
 				}
 			}
 			
-			logicGoal.input = structure.slice(rows);
-			file = new URLLoader();
-			file.addEventListener(Event.COMPLETE, loadGoalNames);
-			file.load(new URLRequest(path + GOALNAMES));
-			
 			addChild(character);
+			
+			image = new Loader();
+			image.load(new URLRequest(OTHERPATH + TUTORIAL));
+			document.addChild(image);
+			
+			document.setClickGoButtonOnce(function():void {
+				document.removeChild(image);
+				
+				logicGoal.input = structure.slice(rows);
+				file = new URLLoader();
+				file.addEventListener(Event.COMPLETE, loadGoalNames);
+				file.load(new URLRequest(path + GOALNAMES));
+			}, this);
 			
 			channel = music.play(0, 10000, new SoundTransform(0.15, 0));
 		}
