@@ -244,7 +244,6 @@
 					nextInput();
 					if (moveDisplayBackgrounds.length > 0) {
 						removeChild(moveDisplayBackgrounds.pop());
-						trace(moveDisplayBackgrounds.length);
 					}
 					addMoveDisplayBackground(200, 300);
 				}
