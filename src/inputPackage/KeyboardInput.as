@@ -22,6 +22,9 @@
 			codeMap[55] = 13;
 			codeMap[56] = 14;
 			codeMap[57] = 15;
+			codeMap[81] = 19; // q
+			codeMap[87] = 20; // w
+			codeMap[69] = 21; // e
 			
 			document.stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
 				if (e.keyCode in codeMap) {
