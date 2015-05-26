@@ -34,7 +34,7 @@ The fiducial for the direction will be on the opposite side of the cube since th
 - Unassigned Command 2 : 5
 - Unassigned Command 3 : 6
 
-### Peach cube:
+### Yellow cube:
 - Foward : 7
 - Left : 8
 - Right : 9
@@ -49,6 +49,14 @@ The fiducial for the direction will be on the opposite side of the cube since th
 - Unassigned Command 1 : 16
 - Unassigned Command 2 : 17
 - Unassigned Command 3 : 18
+
+### Blue cube:
+- Foward : 19
+- Left : 20
+- Right : 21
+- Unassigned Command 1 : 22
+- Unassigned Command 2 : 23
+- Unassigned Command 3 : 24
 
 ## Creating maps
 ### Game environments
