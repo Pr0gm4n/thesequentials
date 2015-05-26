@@ -24,7 +24,7 @@
 		public static const NUMBER_OF_MAPS:uint = 4;
 		public static const NUMBER_OF_LAYOUTS:uint = 1;
 		
-		public static const cubeColors:Array = [0xff0000, 0xffdab9, 0x007f00];
+		public static const cubeColors:Array = [0xff0000, 0xffff00, 0x00ff00, 0x0000ff];
 		public static const cubeColorStrings:Array = ["red", "yellow", "green", "blue"];
 		public static const SOUNDPATH:String = "../Sounds/";
 		public static const NEXTPLAYERSOUND_PREFIX:String = "next_";
