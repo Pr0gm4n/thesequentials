@@ -90,9 +90,20 @@
 			});
 			arduino.addEventListener(ArduinoEvent.FIRMWARE_VERSION, function(e:ArduinoEvent):void {
 				trace("connected to Arduino");
+				arduino.setPinMode(2, Arduino.INPUT);
 				arduino.setPinMode(4, Arduino.OUTPUT);
 				arduino.setPinMode(5, Arduino.OUTPUT);
 				arduino.setPinMode(6, Arduino.OUTPUT);
+				
+				arduino.enableDigitalPinReporting();
+			});
+			arduino.addEventListener(IOErrorEvent.IO_ERROR, function(e:Event = null):void {
+				trace("IO_ERROR: " + e.toString());
+			});
+			arduino.addEventListener(ArduinoEvent.DIGITAL_DATA, function(e:ArduinoEvent):void {
+				if (e.pin == 2) {
+					trace("DIGDATA: " + e.pin + ", " + e.value + ", " + e.port);
+				}
 			});
 			
 			setClickGoButton(function():void {});
