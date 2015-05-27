@@ -41,6 +41,20 @@
 			
 			music = new Sound(new URLRequest("../Music/menu.mp3"));
 			
+			document.setNewInputOnce(function(input:uint):void {
+				switch (document.input.last) {
+					case 0:
+						beginnerButtonClick();
+						break;
+					case 1:
+						intermediateButtonClick();
+						break;
+					case 2:
+						advancedButtonClick();
+						break;
+				}
+			}, this);
+			
 			loadMenu();
 		}
 		
