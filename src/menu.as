@@ -11,48 +11,52 @@
 		public var document:main;
 		
 		var titleText;
-		var beginnerLevelButton;
-		var intermediateLevelButton;
-		var advancedLevelButton;
+		var buttons:Array;
+		var glowButtons:Array;
 		var backgroundPicture;
 		
 		protected var music:Sound;
 		protected var channel:SoundChannel;
 		
-		protected var selection:uint;
-		protected var selectionBackgrounds:Array;
+		protected var selection:int;
 
 		public function menu(d:main) {
 			this.document = d;
 			
 			backgroundPicture = new backgroundImage;
 			
-			beginnerLevelButton = new beginnerText;
-			beginnerLevelButton.x = 940;
-			beginnerLevelButton.y = 600;
-			beginnerLevelButton.addEventListener(MouseEvent.CLICK, beginnerButtonClick);
+			buttons = new Array();
+			glowButtons = new Array();
 			
-			intermediateLevelButton = new intermediateText;
-			intermediateLevelButton.x = 940;
-			intermediateLevelButton.y = 700;
-			intermediateLevelButton.addEventListener(MouseEvent.CLICK, intermediateButtonClick);
+			buttons.push(new beginnerText);
+			buttons[0].x = 940;
+			buttons[0].y = 600;
+			buttons[0].addEventListener(MouseEvent.CLICK, beginnerButtonClick);
+			glowButtons.push(new beginnerTextGlow);
+			glowButtons[0].x = 940;
+			glowButtons[0].y = 600;
+			glowButtons[0].addEventListener(MouseEvent.CLICK, beginnerButtonClick);
 			
-			advancedLevelButton = new advancedText;
-			advancedLevelButton.x = 940;
-			advancedLevelButton.y = 800;
-			advancedLevelButton.addEventListener(MouseEvent.CLICK, advancedButtonClick);
+			buttons.push(new intermediateText);
+			buttons[1].x = 940;
+			buttons[1].y = 700;
+			buttons[1].addEventListener(MouseEvent.CLICK, intermediateButtonClick);
+			glowButtons.push(new intermediateTextGlow);
+			glowButtons[1].x = 940;
+			glowButtons[1].y = 700;
+			glowButtons[1].addEventListener(MouseEvent.CLICK, intermediateButtonClick);
+			
+			buttons.push(new advancedText);
+			buttons[2].x = 940;
+			buttons[2].y = 800;
+			buttons[2].addEventListener(MouseEvent.CLICK, advancedButtonClick);
+			glowButtons.push(new advancedTextGlow);
+			glowButtons[2].x = 940;
+			glowButtons[2].y = 800;
+			glowButtons[2].addEventListener(MouseEvent.CLICK, advancedButtonClick);
 			
 			music = new Sound(new URLRequest("../Music/menu.mp3"));
 			
-			this.selectionBackgrounds = [
-				new selectionBackground,
-				new selectionBackground,
-				new selectionBackground
-			];
-			for (var sbg in selectionBackgrounds) {
-				selectionBackgrounds[sbg].x = 940;
-				selectionBackgrounds[sbg].y = 600 + sbg * 100;
-			}
 			this.selection = 0;
 			
 			document.setClickGoButton(function():void {
@@ -77,12 +81,20 @@
 			loadMenu();
 		}
 		
-		private function select(sel:uint):void {
-			if (selectionBackgrounds[selection].stage) {
-				removeChild(selectionBackgrounds[selection]);
+		private function select(sel:int):void {
+			if (selection != -1) {
+				if (glowButtons[selection].stage) {
+					removeChild(glowButtons[selection]);
+				}
+				addChild(buttons[selection]);
 			}
+			
 			selection = sel % 3;
-			addChild(selectionBackgrounds[selection]);
+			
+			if (buttons[selection].stage) {
+				removeChild(buttons[selection]);
+			}
+			addChild(glowButtons[selection]);
 		}
 		
 		function beginnerButtonClick(e:MouseEvent = null):void {
@@ -102,21 +114,23 @@
 		
 		private function loadMenu(){
 			addChild(backgroundPicture);
-			addChild(beginnerLevelButton);
-			addChild(intermediateLevelButton);
-			addChild(advancedLevelButton);
-			select(selection);
+			for (var i in buttons) {
+				addChild(buttons[i]);
+			}
+			removeChild(buttons[selection]);
+			addChild(glowButtons[selection]);
 			
 			channel = music.play(0, 1000);
 		}
 		
 		private function removeMenu() {
 			removeChild(backgroundPicture);
-			removeChild(beginnerLevelButton);
-			removeChild(intermediateLevelButton);
-			removeChild(advancedLevelButton);
-			if (selectionBackgrounds[selection].stage) {
-				removeChild(selectionBackgrounds[selection]);
+			for (var i in buttons) {
+				if (buttons[i].stage) {
+					removeChild(buttons[i]);
+				} else {
+					removeChild(glowButtons[i]);
+				}
 			}
 			
 			channel.stop();
