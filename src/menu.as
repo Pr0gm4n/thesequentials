@@ -18,6 +18,8 @@
 		
 		protected var music:Sound;
 		protected var channel:SoundChannel;
+		
+		protected var selection:uint;
 
 		public function menu(d:main) {
 			this.document = d;
@@ -41,8 +43,10 @@
 			
 			music = new Sound(new URLRequest("../Music/menu.mp3"));
 			
-			document.setNewInputOnce(function(input:uint):void {
-				switch (document.input.last) {
+			this.selection = 0;
+			
+			document.setClickGoButton(function():void {
+				switch (selection) {
 					case 0:
 						beginnerButtonClick();
 						break;
@@ -53,9 +57,19 @@
 						advancedButtonClick();
 						break;
 				}
+				document.restoreNewInput();
+			}, this);
+			
+			document.setNewInput(function(input:uint):void {
+				select(document.input.last);
 			}, this);
 			
 			loadMenu();
+		}
+		
+		private function select(selection:uint):void {
+			this.selection = selection % 3;
+			// todo: show selection
 		}
 		
 		function beginnerButtonClick(e:MouseEvent = null):void {

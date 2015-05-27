@@ -80,9 +80,6 @@
 			setNewInput(newInputDefault, this);
 			block_newInput = true;
 			
-			mainMenu = new menu(this);
-			addChild(mainMenu);
-			
 			arduino = new Arduino();
 			arduino.addEventListener(Event.CONNECT, function(e:Event):void {
 				trace("connected to Serproxy");
@@ -122,6 +119,9 @@
 			for each (var color in cubeColorStrings) {
 				nextPlayerSounds.push(new Sound(new URLRequest(SOUNDPATH + NEXTPLAYERSOUND_PREFIX + color + NEXTPLAYERSOUND_FILEEXTENSION)));
 			}
+			
+			mainMenu = new menu(this);
+			addChild(mainMenu);
 		}
 		
 		private function setupEasyMode() {
