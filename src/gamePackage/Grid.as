@@ -105,7 +105,7 @@
 			textField.y = box.y - fontSize / 2;
 			textField.htmlText = message;
 			
-			box.width = Math.max(textField.width + 50, 1100);
+			box.width = Math.max(textField.width + 150, 1100);
 			box.height = Math.max(textField.height + 30, 450);
 			
 			addChild(box);
