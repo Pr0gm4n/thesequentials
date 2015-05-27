@@ -41,6 +41,7 @@
 		// handles the input and calls
 		var input:Input;
 		public var newInput:Function;
+		private var newInputBackup:Function;
 		
 		// handle connection to the arduino
 		var arduino:Arduino;
@@ -58,6 +59,7 @@
 		var nextCubeColor;
 		
 		public var clickGoButton:Function;
+		private var clickGoButtonBackup:Function;
 		public var enableGoButton:Boolean;
 		
 		// delays movement of bug in intermediate/advanced mode
@@ -297,15 +299,20 @@
 			}
 		}
 		
-		private function setNewInput(callback:Function, context:Object = null, args:Array = null):void {
+		public function setNewInput(callback:Function, context:Object = null, args:Array = null):void {
 			if (args == null) {
 				args = new Array();
 			}
+			this.newInputBackup = this.newInput;
 			this.newInput = function(input:uint):void {
 				args.unshift(input);
 				callback.apply(context, args);
 				args.shift();
 			};
+		}
+		
+		public function restoreNewInput():void {
+			this.newInput = this.newInputBackup;
 		}
 		
 		public function setNewInputOnce(callback:Function, context:Object = null, args:Array = null):void {
@@ -357,10 +364,15 @@
 			}
 		}
 		
-		private function setClickGoButton(callback:Function, context:Object = null, args:Array = null):void {
+		public function setClickGoButton(callback:Function, context:Object = null, args:Array = null):void {
+			this.clickGoButtonBackup = this.clickGoButton;
 			this.clickGoButton = function(e:Object = null):void {
 				callback.apply(context, args);
 			};
+		}
+		
+		public function restoreClickGoButton():void {
+			this.clickGoButton = this.clickGoButtonBackup;
 		}
 		
 		public function setClickGoButtonOnce(callback:Function, context:Object = null, args:Array = null):void {
