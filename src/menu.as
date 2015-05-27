@@ -44,17 +44,17 @@
 			loadMenu();
 		}
 		
-		function beginnerButtonClick(Event:MouseEvent):void {
+		function beginnerButtonClick(e:MouseEvent = null):void {
 			removeMenu();
 			document.startEasyMode();
 		}
 		
-		function intermediateButtonClick(Event:MouseEvent):void {
+		function intermediateButtonClick(e:MouseEvent = null):void {
 			removeMenu();
 			document.startIntermediateMode();
 		}
 		
-		function advancedButtonClick(Event:MouseEvent):void {
+		function advancedButtonClick(e:MouseEvent = null):void {
 			removeMenu();
 			document.startAdvancedMode();
 		}

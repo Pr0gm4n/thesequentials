@@ -76,7 +76,6 @@
 			input = new KeyboardInput(this);
 			// */
 			setNewInput(newInputDefault, this);
-			
 			block_newInput = true;
 			
 			mainMenu = new menu(this);
@@ -104,7 +103,7 @@
 			});
 			arduino.addEventListener(ArduinoEvent.DIGITAL_DATA, function(e:ArduinoEvent):void {
 				if (e.pin == 2) {
-					trace("DIGDATA: " + e.pin + ", " + e.value + ", " + e.port);
+					trace("DIGITAL_DATA: " + e.pin + ", " + e.value + ", " + e.port);
 				}
 			});
 			
@@ -134,6 +133,8 @@
 			});
 			
 			nextCubeColor = new ColorTransform();
+			input.last = -1;
+			input.next = 0;
 			nextInput();
 			
 			moveDisplayBackgrounds = new Array();

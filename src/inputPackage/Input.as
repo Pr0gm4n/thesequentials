@@ -11,7 +11,7 @@
 		public function Input(document:main) {
 			this.document = document;
 			this.last = -1;
-			this.next = 0;
+			this.next = -1;
 		}
 
 		protected function input(input:uint):void {
