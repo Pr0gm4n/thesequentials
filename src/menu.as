@@ -13,7 +13,7 @@
 		var titleText;
 		var beginnerLevelButton;
 		var intermediateLevelButton;
-		var advnacedLevelButton;
+		var advancedLevelButton;
 		var backgroundPicture;
 		
 		protected var music:Sound;
@@ -36,10 +36,10 @@
 			intermediateLevelButton.y = 700;
 			intermediateLevelButton.addEventListener(MouseEvent.CLICK, intermediateButtonClick);
 			
-			advnacedLevelButton = new advancedText;
-			advnacedLevelButton.x = 940;
-			advnacedLevelButton.y = 800;
-			advnacedLevelButton.addEventListener(MouseEvent.CLICK, advancedButtonClick);
+			advancedLevelButton = new advancedText;
+			advancedLevelButton.x = 940;
+			advancedLevelButton.y = 800;
+			advancedLevelButton.addEventListener(MouseEvent.CLICK, advancedButtonClick);
 			
 			music = new Sound(new URLRequest("../Music/menu.mp3"));
 			
@@ -91,7 +91,7 @@
 			addChild(backgroundPicture);
 			addChild(beginnerLevelButton);
 			addChild(intermediateLevelButton);
-			addChild(advnacedLevelButton);
+			addChild(advancedLevelButton);
 			
 			channel = music.play(0, 1000);
 		}
@@ -100,7 +100,7 @@
 			removeChild(backgroundPicture);
 			removeChild(beginnerLevelButton);
 			removeChild(intermediateLevelButton);
-			removeChild(advnacedLevelButton);
+			removeChild(advancedLevelButton);
 			
 			channel.stop();
 		}
