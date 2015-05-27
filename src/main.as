@@ -40,6 +40,7 @@
 		
 		// handles the input and calls
 		var input:Input;
+		public var newInput:Function;
 		
 		// handle connection to the arduino
 		var arduino:Arduino;
@@ -74,6 +75,7 @@
 			/*/
 			input = new KeyboardInput(this);
 			// */
+			setNewInput(newInputDefault, this);
 			
 			block_newInput = true;
 			
@@ -245,7 +247,7 @@
 		 *  - EASY (real time)
 		 *  - INTERMEDIATE / ADVANCED (work in moves array and show arrows in moveDisplayArray)
 		 */
-		public function newInput(input:uint):void {
+		private function newInputDefault(input:uint):void {
 			if (block_newInput) return;
 			if (mode == EASY) {
 				game.move(input);
@@ -299,6 +301,30 @@
 				}
 				updateGoButton();
 			}
+		}
+		
+		private function setNewInput(callback:Function, context:Object = null, args:Array = null):void {
+			if (args == null) {
+				args = new Array();
+			}
+			this.newInput = function(input:uint):void {
+				args.unshift(input);
+				callback.apply(context, args);
+				args.shift();
+			};
+		}
+		
+		public function setNewInputOnce(callback:Function, context:Object = null, args:Array = null):void {
+			var tmpNewInput:Function = this.newInput;
+			if (args == null) {
+				args = new Array();
+			}
+			this.newInput = function(input:uint):void {
+				args.unshift(input);
+				callback.apply(context, args);
+				args.shift();
+				this.newInput = tmpNewInput;
+			};
 		}
 		
 		public function blockInput():void {
