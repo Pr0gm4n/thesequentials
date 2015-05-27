@@ -20,6 +20,7 @@
 		protected var channel:SoundChannel;
 		
 		protected var selection:uint;
+		protected var selectionBackgrounds:Array;
 
 		public function menu(d:main) {
 			this.document = d;
@@ -43,6 +44,15 @@
 			
 			music = new Sound(new URLRequest("../Music/menu.mp3"));
 			
+			this.selectionBackgrounds = [
+				new selectionBackground,
+				new selectionBackground,
+				new selectionBackground
+			];
+			for (var sbg in selectionBackgrounds) {
+				selectionBackgrounds[sbg].x = 940;
+				selectionBackgrounds[sbg].y = 600 + sbg * 100;
+			}
 			this.selection = 0;
 			
 			document.setClickGoButton(function():void {
@@ -67,9 +77,12 @@
 			loadMenu();
 		}
 		
-		private function select(selection:uint):void {
-			this.selection = selection % 3;
-			// todo: show selection
+		private function select(sel:uint):void {
+			if (selectionBackgrounds[selection].stage) {
+				removeChild(selectionBackgrounds[selection]);
+			}
+			selection = sel % 3;
+			addChild(selectionBackgrounds[selection]);
 		}
 		
 		function beginnerButtonClick(e:MouseEvent = null):void {
@@ -92,6 +105,7 @@
 			addChild(beginnerLevelButton);
 			addChild(intermediateLevelButton);
 			addChild(advancedLevelButton);
+			select(selection);
 			
 			channel = music.play(0, 1000);
 		}
@@ -101,6 +115,9 @@
 			removeChild(beginnerLevelButton);
 			removeChild(intermediateLevelButton);
 			removeChild(advancedLevelButton);
+			if (selectionBackgrounds[selection].stage) {
+				removeChild(selectionBackgrounds[selection]);
+			}
 			
 			channel.stop();
 		}
