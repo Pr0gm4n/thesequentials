@@ -192,14 +192,7 @@
 			addChild(moveList);
 			
 			updateGoButton();
-			setClickGoButton(function():void {
-				if (moves.length == 4 || enableGoButton) {
-					movementDelay.start();
-					blockInput();
-					
-					input.last = -1;
-				}
-			});
+			setClickGoButton(clickGoButtonDefault, this);
 			
 			movementDelay = new Timer(500, 4);
 			movementDelay.addEventListener(TimerEvent.TIMER, function(e:TimerEvent):void {
@@ -354,10 +347,19 @@
 			}
 		}
 		
-		public function setClickGoButton(callback:Function, context:Object = null, args:Array = null):void {
+		private function clickGoButtonDefault():void {
+			if (moves.length == 4 || enableGoButton) {
+				movementDelay.start();
+				blockInput();
+				
+				input.last = -1;
+			}
+		}
+		
+		private function setClickGoButton(callback:Function, context:Object = null, args:Array = null):void {
 			this.clickGoButton = function(e:Object = null):void {
 				callback.apply(context, args);
-			}
+			};
 		}
 		
 		public function setClickGoButtonOnce(callback:Function, context:Object = null, args:Array = null):void {
@@ -365,7 +367,7 @@
 			this.clickGoButton = function(e:Object = null):void {
 				callback.apply(context, args);
 				this.clickGoButton = tmpClickGoButton;
-			}
+			};
 		}
 		
 		/**
