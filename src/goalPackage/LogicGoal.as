@@ -5,6 +5,9 @@
 	import flash.utils.Dictionary;
 	import flash.display.MovieClip;
 	import flash.display.Bitmap;
+	import gamePackage.Grid;
+	import flash.media.Sound;
+	import flash.net.URLRequest;
 	
 	public class LogicGoal extends MovieClip implements Goal {
 		
@@ -19,8 +22,12 @@
 		
 		private var goals:Array;
 		private var goalDisplays:Array;
+		
+		private var game:Grid;
+		private var tryagain:Sound;
 
-		public function LogicGoal(rows:uint, cols:uint) {
+		public function LogicGoal(game:Grid, rows:uint, cols:uint) {
+			this.game = game;
 			this.rows = rows;
 			this.cols = cols;
 			
@@ -35,6 +42,8 @@
 			
 			this.goals = new Array();
 			this.goalDisplays = new Array();
+			
+			this.tryagain = new Sound(new URLRequest(Grid.SOUNDPATH + "tryagain" + Grid.SOUND_FILEEXTENSION));
 		}
 		
 		public function isGoal(posX:uint, posY:uint, keep:Boolean = true):Boolean {
@@ -51,7 +60,11 @@
 					for each (var goalDisplay in goalDisplays) {
 						reachable = goalDisplay.update(targetReached);
 						if (!reachable) {
-							trace("END");
+							tryagain.play();
+							game.addMessage("Oh no, try again!", 80, function():void {
+								//game.restart();
+							});
+							
 						}
 					}
 				} else {

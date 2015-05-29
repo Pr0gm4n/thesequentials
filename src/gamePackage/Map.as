@@ -37,7 +37,7 @@
 			this.x = x;
 			this.y = y;
 			
-			this.goal = new LogicGoal(rows, cols);
+			this.goal = new LogicGoal(this, rows, cols);
 			this.logicGoal = goal as LogicGoal;
 			
 			this.path = MAPPATH + MAPFOLDER_PREFIX + map + "/";
