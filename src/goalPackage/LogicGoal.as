@@ -4,6 +4,7 @@
 	
 	import flash.utils.Dictionary;
 	import flash.display.MovieClip;
+	import flash.display.Bitmap;
 	
 	public class LogicGoal extends MovieClip implements Goal {
 		
@@ -79,11 +80,13 @@
 				}
 			}
 			var xMax:uint = 0;
+			var header = new Bitmap(new goalsText);
 			var goalDisplay:ExpressionDisplay;
 			for (var goal in goals) {
 				goalDisplay = new ExpressionDisplay(goals[goal]);
 				xMax = Math.max(xMax, goalDisplay.getCheckboxX());
-				goalDisplay.y = (goal - goals.length / 2) * (goalDisplay.height + 10);
+				goalDisplay.x = header.width;
+				goalDisplay.y = (header.height / 2) + (goal - goals.length / 2.0) * (goalDisplay.height + 10);
 				goalDisplay.update(targetReached, false);
 				goalDisplays.push(goalDisplay);
 				addChild(goalDisplay);
@@ -91,6 +94,32 @@
 			for each (goalDisplay in goalDisplays) {
 				goalDisplay.setCheckboxX(xMax);
 			}
+			
+			header.y = -1 * (header.height + (goals.length * (goalDisplay.height + 10) / 2));
+			addChild(header);
+			
+			if (goalDisplays.length > 1) {
+				var element:Bitmap = new Bitmap(new andBracket);
+				element.x = header.width / 2;
+				element.y = goalDisplays[0].y;
+				element.height = goalDisplay.y - element.y;
+				addChild(element);
+				element = new Bitmap(new andText);
+				element.x = header.width / 2 - element.width - 10;
+				element.y = (goalDisplays[0].y + goalDisplay.y - element.height) / 2;
+				addChild(element);
+			}
+			
+			var bracket:Bitmap = new Bitmap(new leftBracket);
+			bracket.x = -20 - bracket.width;
+			bracket.y = header.y - 10;
+			bracket.height = goalDisplay.y + goalDisplay.height / 2 - header.y + 10;
+			addChild(bracket);
+			bracket = new Bitmap(new rightBracket);
+			bracket.x = goalDisplay.x + xMax + goalDisplay.checkbox.width + 20;
+			bracket.y = header.y - 10;
+			bracket.height = goalDisplay.y + goalDisplay.height / 2 - header.y + 10;
+			addChild(bracket);
 		}
 		
 		override public function toString():String {

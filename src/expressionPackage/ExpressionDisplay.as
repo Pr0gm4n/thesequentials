@@ -19,7 +19,7 @@
 		private static const format:TextFormat = new TextFormat("a bug's life", fontSize);
 		
 		private var textField:TextField;
-		private var checkbox;
+		public var checkbox;
 		private var tick;
 		
 		private var achieveGoal:Sound;
