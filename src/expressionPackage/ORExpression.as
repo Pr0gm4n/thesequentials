@@ -7,6 +7,8 @@
 		private var right:Expression;
 
 		public function ORExpression(left:Expression, right:Expression) {
+			id = Expression.OREXPRESSION;
+			
 			this.left = left;
 			this.right = right;
 		}

@@ -7,6 +7,8 @@
 		private var variableName:String;
 
 		public function Variable(variable:String, variableName:String = "") {
+			id = Expression.VARIABLE;
+			
 			this.variable = variable;
 			this.variableName = variableName;
 		}

@@ -6,6 +6,8 @@
 		private var expression:Expression;
 
 		public function NOTExpression(expression:Expression) {
+			id = Expression.NOTEXPRESSION;
+			
 			this.expression = expression;
 		}
 		
