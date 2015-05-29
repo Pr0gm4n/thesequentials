@@ -141,7 +141,6 @@
 			nextInput();
 			
 			moveDisplayBackgrounds = new Array();
-			addMoveDisplayBackground(200, 300);
 			
 			setClickGoButton(function():void {});
 		}
@@ -212,8 +211,6 @@
 				movementDelay.reset();
 				allowInput();
 				updateGoButton();
-				
-				addMoveDisplayBackground(200, 300);
 			});
 		}
 		
@@ -257,7 +254,6 @@
 					if (moveDisplayBackgrounds.length > 0) {
 						removeChild(moveDisplayBackgrounds.pop());
 					}
-					addMoveDisplayBackground(200, 300);
 				}
 			} else { // intermediate/advanced mode
 				if (input == Bug.UNDO) {
@@ -265,10 +261,8 @@
 						moves.splice(-1, 1);
 						var tmp = moveDisplayArray.splice(-1, 1);
 						removeChild(tmp[0]);
-						if (1 < moveDisplayBackgrounds.length && moves.length < 3) {
-							tmp = moveDisplayBackgrounds.splice(-1, 1);
-							removeChild(tmp[0]);
-						}
+						tmp = moveDisplayBackgrounds.splice(-1, 1);
+						removeChild(tmp[0]);
 						
 						lastInput();
 					}
@@ -290,13 +284,16 @@
 					arrow.x = 200;
 					arrow.y = (300 + 130 * (moves.length - 1));
 					moveDisplayArray.push(arrow);
-					addChild(arrow);
-				
-					nextInput();
 					
-					if (moveDisplayBackgrounds.length < 4) {
-						addMoveDisplayBackground(arrow.x, arrow.y + 130);
-					}
+					var background = new Token();
+					background.x = arrow.x - 0.5 * background.width;
+					background.y = arrow.y - 0.5 * background.height;
+					background.transform.colorTransform = nextCubeColor;
+					moveDisplayBackgrounds.push(background);
+					addChild(background);
+					addChild(arrow);
+					
+					nextInput();
 				}
 				updateGoButton();
 			}
@@ -398,17 +395,6 @@
 				}
 				enableGoButton = game.getGoal().isGoal(ghost.posX, ghost.posY, false);
 			}
-		}
-		
-		private function addMoveDisplayBackground(x:uint, y:uint):void {
-			var background = new Token();
-			background.x = x - 0.5 * background.width;
-			background.y = y - 0.5 * background.height;
-			background.transform.colorTransform = nextCubeColor;
-			moveDisplayBackgrounds.push(background);
-			addChild(background);
-			
-			nextPlayerSounds[input.next].play();
 		}
 		
 		private function updateArduino():void {
