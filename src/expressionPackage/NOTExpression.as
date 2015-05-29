@@ -13,8 +13,8 @@
 			return !expression.evaluate(variables);
 		}
 		
-		override public function toString(numeric:Boolean = false):String {
-			return "NOT " + expression.toString(numeric);
+		override public function toString(short:Boolean = false):String {
+			return "NOT " + expression.toString(short);
 		}
 	}
 }

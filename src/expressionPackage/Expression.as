@@ -10,7 +10,7 @@
 			return false;
 		}
 		
-		public function toString(numeric:Boolean = false):String {
+		public function toString(short:Boolean = false):String {
 			return "";
 		}
 	}

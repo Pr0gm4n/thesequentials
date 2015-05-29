@@ -15,9 +15,9 @@
 			return (left.evaluate(variables) || right.evaluate(variables));
 		}
 		
-		override public function toString(numeric:Boolean = false):String {
-			var l:String = left.toString(numeric);
-			var r:String = right.toString(numeric);
+		override public function toString(short:Boolean = false):String {
+			var l:String = left.toString(short);
+			var r:String = right.toString(short);
 			
 			if (l == "") {
 				return r;

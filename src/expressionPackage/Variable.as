@@ -6,7 +6,7 @@
 		private var variable:String;
 		private var variableName:String;
 
-		public function Variable(variable:String, variableName:String = null) {
+		public function Variable(variable:String, variableName:String = "") {
 			this.variable = variable;
 			this.variableName = variableName;
 		}
@@ -15,8 +15,8 @@
 			return (variables[variable] != undefined);
 		}
 		
-		override public function toString(numeric:Boolean = false):String {
-			return ((variableName == null) || numeric ? variable : "the " + variableName);
+		override public function toString(short:Boolean = false):String {
+			return (short ? variableName : "the " + variableName);
 		}
 	}
 }

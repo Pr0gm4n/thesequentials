@@ -32,7 +32,7 @@
 			textField.embedFonts = true;
 			textField.defaultTextFormat = format;
             textField.autoSize = TextFieldAutoSize.LEFT;
-			textField.htmlText = expression.toString();
+			textField.htmlText = expression.toString(true);
 			
 			addChild(textField);
 			this.height = textField.height;
