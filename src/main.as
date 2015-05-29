@@ -347,10 +347,10 @@
 				args = new Array();
 			}
 			this.newInput = function(input:uint):void {
+				this.newInput = tmpNewInput;
 				args.unshift(input);
 				callback.apply(context, args);
 				args.shift();
-				this.newInput = tmpNewInput;
 			};
 		}
 		
@@ -404,8 +404,8 @@
 		public function setClickGoButtonOnce(callback:Function, context:Object = null, args:Array = null):void {
 			var tmpClickGoButton:Function = this.clickGoButton;
 			this.clickGoButton = function(e:Object = null):void {
-				callback.apply(context, args);
 				this.clickGoButton = tmpClickGoButton;
+				callback.apply(context, args);
 			};
 		}
 		
