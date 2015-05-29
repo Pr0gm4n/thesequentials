@@ -46,9 +46,13 @@
 					return expression.evaluate(targetReached);
 				});
 				
+				var reachable:Boolean;
 				if (keep) {
 					for each (var goalDisplay in goalDisplays) {
-						goalDisplay.update(targetReached);
+						reachable = goalDisplay.update(targetReached);
+						if (!reachable) {
+							trace("END");
+						}
 					}
 				} else {
 					delete targetReached[target];

@@ -50,7 +50,12 @@
 			this.achieveGoal = new Sound(new URLRequest(SOUNDPATH + "goal_achieve" + SOUND_FILEEXTENSION));
 		}
 		
-		public function update(variables:Dictionary, playSound:Boolean = true):void {
+		/**
+		 * Updates the display according to the state of passed variables.
+		 * 
+		 * @returns reachable:Boolean indicates whether the expression is still satisfiable
+		 */
+		public function update(variables:Dictionary, playSound:Boolean = true):Boolean {
 			var checked:Boolean = expression.evaluate(variables);
 			if (checked && !tick.stage) {
 				addChild(tick);
@@ -61,6 +66,9 @@
 			if (!checked && tick.stage) {
 				removeChild(tick);
 			}
+			if (expression.id == Expression.NOTEXPRESSION) {
+				return checked;
+			} else return true;
 		}
 		
 		public function getCheckboxX():uint {
