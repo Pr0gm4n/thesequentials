@@ -116,6 +116,7 @@
 			addChild(logicGoal);
 			addMessage(logicGoal.toString(), 40, function():void {
 				document.allowInput();
+				document.nextPlayerSounds[document.input.next].play();
 			});
 		}
 	}

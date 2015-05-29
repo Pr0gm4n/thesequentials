@@ -38,7 +38,7 @@
 		protected var bumpSound:Sound;
 		
 		// store the last performed action for undo()
-		private var last:uint;
+		public var last:uint;
 		
 		/**
 		 * Adds a new bug to the grid and positions it correctly.

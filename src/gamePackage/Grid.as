@@ -28,7 +28,7 @@
 		public var rows;
 		public var cols;
 		
-		protected var character:Bug;
+		public var character:Bug;
 		
 		protected var goal:Goal;
 		

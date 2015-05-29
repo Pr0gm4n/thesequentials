@@ -31,16 +31,16 @@
 		public static const NEXTPLAYERSOUND_PREFIX:String = "next_";
 		public static const NEXTPLAYERSOUND_FILEEXTENSION:String = ".mp3";
 		
-		var nextPlayerSounds:Array;
+		public var nextPlayerSounds:Array;
 		
-		var mode:uint;
+		public var mode:uint;
 		var block_newInput:Boolean;
 		
 		// maps keycodes to bug movements
 		private var codeMap:Dictionary;
 		
 		// handles the input and calls
-		var input:Input;
+		public var input:Input;
 		public var newInput:Function;
 		private var newInputBackup:Function;
 		
@@ -210,6 +210,7 @@
 			movementDelay.addEventListener(TimerEvent.TIMER_COMPLETE, function(e:TimerEvent):void {
 				movementDelay.reset();
 				allowInput();
+				nextPlayerSounds[this.input.next].play();
 				updateGoButton();
 			});
 		}
@@ -251,8 +252,8 @@
 					lastInput();
 				} else {
 					nextInput();
-					if (moveDisplayBackgrounds.length > 0) {
-						removeChild(moveDisplayBackgrounds.pop());
+					if (game.character.last != Bug.UNDO) {
+						nextPlayerSounds[this.input.next].play();
 					}
 				}
 			} else { // intermediate/advanced mode
@@ -294,6 +295,9 @@
 					addChild(arrow);
 					
 					nextInput();
+					if (moves.length < 4) {
+						nextPlayerSounds[this.input.next].play();
+					}
 				}
 				updateGoButton();
 			}
@@ -407,7 +411,7 @@
 					arduino.writeAnalogPin(3, mask & 0xff); // B
 					arduino.flush();
 				} else trace("invalid index: " + index);
-			} else trace("invalid: arduino not connected");
+			} else trace("updateArduino(): arduino not connected");
 		}
 		
 		public function reset():void {
