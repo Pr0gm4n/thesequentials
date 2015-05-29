@@ -56,7 +56,9 @@
 			glowButtons[2].addEventListener(MouseEvent.CLICK, advancedButtonClick);
 			
 			music = new Sound(new URLRequest("../Music/menu.mp3"));
-			
+		}
+		
+		public function reset():void {
 			this.selection = 0;
 			
 			document.setClickGoButton(function():void {

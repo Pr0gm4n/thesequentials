@@ -78,14 +78,14 @@
 			/*/
 			input = new KeyboardInput(this);
 			// */
-			setNewInput(newInputDefault, this);
-			block_newInput = true;
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
 				if (e.keyCode in codeMap) {
 					newInput(codeMap[e.keyCode]);
 				}
 			});
+			
+			mainMenu = new menu(this);
 			
 			arduino = new Arduino();
 			arduino.addEventListener(Event.CONNECT, function(e:Event):void {
@@ -125,7 +125,31 @@
 				nextPlayerSounds.push(new Sound(new URLRequest(SOUNDPATH + NEXTPLAYERSOUND_PREFIX + color + NEXTPLAYERSOUND_FILEEXTENSION)));
 			}
 			
-			mainMenu = new menu(this);
+			reset(false);
+		}
+		
+		public function reset(removeChildren:Boolean = true):void {
+			if (removeChildren) {
+				this.removeChildren();
+		
+				mode = undefined;
+				game = undefined;
+				moves = undefined;
+				moveDisplayArray = undefined;
+				moveDisplayBackgrounds = undefined;
+				moveList = undefined;
+				enableGoButton = undefined;
+				movementDelay = undefined;
+			}
+			
+			input.reset();
+			
+			setNewInput(newInputDefault, this);
+			block_newInput = true;
+			
+			setClickGoButton(function():void {});
+			
+			mainMenu.reset();
 			addChild(mainMenu);
 		}
 		
@@ -410,11 +434,6 @@
 					arduino.flush();
 				} else trace("invalid index: " + index);
 			} else trace("updateArduino(): arduino not connected");
-		}
-		
-		public function reset():void {
-			// TODO: reload menu, cleanup current level
-			trace("TODO: reset");
 		}
 		
 		/**
