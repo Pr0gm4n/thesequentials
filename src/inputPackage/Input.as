@@ -10,6 +10,10 @@
 
 		public function Input(document:main) {
 			this.document = document;
+			reset();
+		}
+		
+		public function reset():void {
 			this.last = -1;
 			this.next = -1;
 		}

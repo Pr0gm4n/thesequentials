@@ -81,6 +81,12 @@
 			setNewInput(newInputDefault, this);
 			block_newInput = true;
 			
+			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
+				if (e.keyCode in codeMap) {
+					newInput(codeMap[e.keyCode]);
+				}
+			});
+			
 			arduino = new Arduino();
 			arduino.addEventListener(Event.CONNECT, function(e:Event):void {
 				trace("connected to Serproxy");
@@ -101,15 +107,13 @@
 			arduino.addEventListener(IOErrorEvent.IO_ERROR, function(e:Event = null):void {
 				trace("IO_ERROR: " + e.toString());
 			});
-			arduino.addEventListener(ArduinoEvent.DIGITAL_DATA, function(e:ArduinoEvent):void {
-				if (e.pin == 2) {
-					trace("DIGITAL_DATA: " + e.pin + ", " + e.value + ", " + e.port);
-				}
-			});
 			
 			setClickGoButton(function():void {});
-			// TODO: replace with hardware button listener
-			//goButtonGreen.addEventListener(MouseEvent.CLICK, clickGoButton);
+			arduino.addEventListener(ArduinoEvent.DIGITAL_DATA, function(e:ArduinoEvent):void {
+				if (e.pin == 2) {
+					clickGoButton();
+				}
+			});
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
 				if (e.keyCode == 32) { // spacebar
 					clickGoButton();
@@ -128,12 +132,6 @@
 		private function setupEasyMode() {
 			game = new Map(this, 300, 75, 8, 8, random(1, NUMBER_OF_MAPS), mode, random(1, NUMBER_OF_LAYOUTS));
 			addChild(game);
-			
-			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
-				if (e.keyCode in codeMap) {
-					newInput(codeMap[e.keyCode]);
-				}
-			});
 			
 			nextCubeColor = new ColorTransform();
 			input.last = -1;

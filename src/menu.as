@@ -132,7 +132,8 @@
 			for (var i in buttons) {
 				if (buttons[i].stage) {
 					removeChild(buttons[i]);
-				} else {
+				}
+				if (glowButtons[i].stage) {
 					removeChild(glowButtons[i]);
 				}
 			}
