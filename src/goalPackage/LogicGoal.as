@@ -62,7 +62,7 @@
 						if (!reachable) {
 							tryagain.play();
 							game.addMessage("Oh no, try again!", 80, function():void {
-								//game.restart();
+								game.restart();
 							});
 							
 						}

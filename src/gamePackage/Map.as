@@ -31,24 +31,38 @@
 		
 		protected var music:Sound;
 		protected var channel:SoundChannel;
+		
+		private var map:uint;
+		private var level:uint;
+		private var layout:uint;
 
 		public function Map(document:main, x:uint, y:uint, rows:uint, cols:uint, map:uint, level:uint, layout:uint = 1) {
 			super(document, rows, cols, false);
 			this.x = x;
 			this.y = y;
 			
-			this.goal = new LogicGoal(this, rows, cols);
-			this.logicGoal = goal as LogicGoal;
+			this.map = map;
+			this.level = level;
+			this.layout = layout;
 			
 			this.path = MAPPATH + MAPFOLDER_PREFIX + map + "/";
-			
-			this.file = new URLLoader();
-			file.addEventListener(Event.COMPLETE, loadMap);
-			file.load(new URLRequest(MAPPATH + LAYOUT_FOLDER + level + "/" + layout + LAYOUT_FILEEXTENSION));
 			
 			this.music = new Sound(new URLRequest(MUSICPATH + map + MUSIC_FILEEXTENSION));
 			
 			document.blockInput();
+			
+			restart(false);
+		}
+		
+		override public function restart(removeChildren:Boolean = true):void {
+			super.restart(removeChildren);
+			
+			this.goal = new LogicGoal(this, rows, cols);
+			this.logicGoal = goal as LogicGoal;
+			
+			this.file = new URLLoader();
+			file.addEventListener(Event.COMPLETE, loadMap);
+			file.load(new URLRequest(MAPPATH + LAYOUT_FOLDER + level + "/" + layout + LAYOUT_FILEEXTENSION));
 		}
 		
 		private function loadMap(e:Event = null) {

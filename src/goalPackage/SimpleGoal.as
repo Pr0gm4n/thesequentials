@@ -6,7 +6,7 @@
 		private var goalY:uint;
 		private var type:uint;
 
-		public function SimpleGoal(goalX:uint, goalY:uint, type:uint = 1) {
+		public function SimpleGoal(goalX:uint = 7, goalY:uint = 7, type:uint = 1) {
 			this.goalX = goalX;
 			this.goalY = goalY;
 			this.type = type;

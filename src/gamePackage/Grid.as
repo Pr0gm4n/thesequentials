@@ -36,25 +36,33 @@
 		
 		protected var welldone:Sound;
 		
-		public function Grid(document:main, rows, cols, addCharacter:Boolean = true, goalX = 7, goalY = 7) {
+		public function Grid(document:main, rows, cols, addCharacter:Boolean = true) {
 			this.document = document;
-			
-			this.goal = new SimpleGoal(goalX, goalY);
 			
 			this.rows = rows;
 			this.cols = cols;
-			
-			character = new Bug(this);
-			character.gotoAndStop(1);
-			if (addCharacter) {
-				addChild(character);
-			}
 			
 			block = new Vector.<Vector.<Boolean>>(cols, true);
 			for (var i:Number = 0; i < cols; i++) {
 				block[i] = new Vector.<Boolean>(rows, true);
 			}
 			this.welldone = new Sound(new URLRequest(SOUNDPATH + "welldone" + SOUND_FILEEXTENSION));
+			
+			restart(false);
+			if (!addCharacter) {
+				removeChild(character);
+			}
+		}
+		
+		public function restart(removeChildren:Boolean = true):void {
+			if (removeChildren) {
+				this.removeChildren();
+			}
+			this.goal = new SimpleGoal();
+			
+			character = new Bug(this);
+			character.gotoAndStop(1);
+			addChild(character);
 		}
 		
 		public function isAccessible(posX:uint, posY:uint):Boolean {
