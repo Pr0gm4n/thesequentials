@@ -142,6 +142,8 @@
 			
 			moveDisplayBackgrounds = new Array();
 			addMoveDisplayBackground(200, 300);
+			
+			setClickGoButton(function():void {});
 		}
 		
 		private function setupIntermediateMode() {
