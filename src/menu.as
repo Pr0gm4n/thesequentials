@@ -71,7 +71,6 @@
 						advancedButtonClick();
 						break;
 				}
-				document.restoreNewInput();
 			}, this);
 			
 			document.setNewInput(function(input:uint):void {
@@ -97,18 +96,23 @@
 			addChild(glowButtons[selection]);
 		}
 		
-		function beginnerButtonClick(e:MouseEvent = null):void {
+		private function buttonClick():void {
+			document.restoreNewInput();
 			removeMenu();
+		}
+		
+		function beginnerButtonClick(e:MouseEvent = null):void {
+			buttonClick();
 			document.startEasyMode();
 		}
 		
 		function intermediateButtonClick(e:MouseEvent = null):void {
-			removeMenu();
+			buttonClick();
 			document.startIntermediateMode();
 		}
 		
 		function advancedButtonClick(e:MouseEvent = null):void {
-			removeMenu();
+			buttonClick();
 			document.startAdvancedMode();
 		}
 		
