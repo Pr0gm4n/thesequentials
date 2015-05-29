@@ -52,6 +52,7 @@
 			document.blockInput();
 			
 			restart(false);
+			removeChild(character);
 		}
 		
 		override public function restart(removeChildren:Boolean = true):void {

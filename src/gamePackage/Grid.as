@@ -36,7 +36,7 @@
 		
 		protected var welldone:Sound;
 		
-		public function Grid(document:main, rows, cols, addCharacter:Boolean = true) {
+		public function Grid(document:main, rows, cols, restartGame:Boolean = true) {
 			this.document = document;
 			
 			this.rows = rows;
@@ -48,9 +48,8 @@
 			}
 			this.welldone = new Sound(new URLRequest(SOUNDPATH + "welldone" + SOUND_FILEEXTENSION));
 			
-			restart(false);
-			if (!addCharacter) {
-				removeChild(character);
+			if (restartGame) {
+				restart(false);
 			}
 		}
 		
