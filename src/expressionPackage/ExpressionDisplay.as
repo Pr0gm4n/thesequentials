@@ -63,12 +63,25 @@
 					achieveGoal.play();
 				}
 			}
-			if (!checked && tick.stage) {
-				removeChild(tick);
+			if (!checked) {
+				if (tick.stage) {
+					removeChild(tick);
+				}
+				if (expression.id == Expression.NOTEXPRESSION) {
+					var tf:TextField = new TextField;
+					tf.x = textField.x - 5;
+					tf.y = textField.y - 10;
+					tf.width = checkbox.x + checkbox.width - tf.x + 10;
+					tf.height = textField.height + 10;
+					tf.border = true;
+					tf.background = true;
+					tf.backgroundColor = 0xff0000;
+					tf.alpha = 0.5;
+					addChild(tf);
+					return false;
+				}
 			}
-			if (expression.id == Expression.NOTEXPRESSION) {
-				return checked;
-			} else return true;
+			return true;
 		}
 		
 		public function getCheckboxX():uint {
