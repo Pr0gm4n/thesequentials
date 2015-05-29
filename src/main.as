@@ -25,6 +25,7 @@
 		public static const NUMBER_OF_LAYOUTS:uint = 1;
 		
 		public static const cubeColors:Array = [0xff0000, 0xffff00, 0x00ff00, 0x0000ff];
+		public static const rgbLEDColors:Array = [0xff0000, 0xff6e00, 0x00ff00, 0x0000ff];
 		public static const cubeColorStrings:Array = ["red", "yellow", "green", "blue"];
 		public static const SOUNDPATH:String = "../Sounds/";
 		public static const NEXTPLAYERSOUND_PREFIX:String = "next_";
@@ -91,9 +92,9 @@
 			arduino.addEventListener(ArduinoEvent.FIRMWARE_VERSION, function(e:ArduinoEvent):void {
 				trace("connected to Arduino");
 				arduino.setPinMode(2, Arduino.INPUT);
-				arduino.setPinMode(4, Arduino.OUTPUT);
-				arduino.setPinMode(5, Arduino.OUTPUT);
-				arduino.setPinMode(6, Arduino.OUTPUT);
+				arduino.setPinMode(3, Arduino.PWM); // blue
+				arduino.setPinMode(5, Arduino.PWM); // red
+				arduino.setPinMode(6, Arduino.PWM); // green
 				
 				arduino.enableDigitalPinReporting();
 			});
@@ -410,20 +411,15 @@
 		
 		private function updateArduino():void {
 			if (arduino.connected) {
-				arduino.writeDigitalPin(4, 0);
-				arduino.writeDigitalPin(5, 0);
-				arduino.writeDigitalPin(6, 0);
-				switch(nextCubeColor.color) {
-					case cubeColors[0]:
-						arduino.writeDigitalPin(4, 1);
-						break;
-					case cubeColors[1]:
-						arduino.writeDigitalPin(5, 1);
-						break;
-					default:
-						arduino.writeDigitalPin(6, 1);
-				}
-			}
+				var index:int = cubeColors.indexOf(nextCubeColor.color);
+				if (0 <= index && index < rgbLEDColors.length) {
+					var mask:uint = rgbLEDColors[index];
+					arduino.writeAnalogPin(5, mask >>> 16); // R
+					arduino.writeAnalogPin(6, (mask >>> 8) & 0xff); // G
+					arduino.writeAnalogPin(3, mask & 0xff); // B
+					arduino.flush();
+				} else trace("invalid index: " + index);
+			} else trace("invalid: arduino not connected");
 		}
 		
 		public function reset():void {
