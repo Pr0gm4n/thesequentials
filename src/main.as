@@ -126,7 +126,7 @@
 		}
 		
 		private function setupEasyMode() {
-			game = new Map(this, 400, 50, 8, 8, random(1, NUMBER_OF_MAPS), mode, random(1, NUMBER_OF_LAYOUTS));
+			game = new Map(this, 300, 75, 8, 8, random(1, NUMBER_OF_MAPS), mode, random(1, NUMBER_OF_LAYOUTS));
 			addChild(game);
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
@@ -189,7 +189,7 @@
 			moveDisplayArray = new Array();
 			
 			moveList = new inputText;
-			moveList.x = 200;
+			moveList.x = 150;
 			moveList.y = 150;
 			
 			enableGoButton = false;
@@ -282,7 +282,7 @@
 							arrow = new turnRightArrow();
 							break;
 					}
-					arrow.x = 200;
+					arrow.x = 150;
 					arrow.y = (300 + 130 * (moves.length - 1));
 					moveDisplayArray.push(arrow);
 					
