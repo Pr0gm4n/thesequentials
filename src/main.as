@@ -43,6 +43,7 @@
 		public var input:Input;
 		public var newInput:Function;
 		private var newInputBackup:Function;
+		private var redecide:Boolean;
 		
 		// handle connection to the arduino
 		var arduino:Arduino;
@@ -223,6 +224,7 @@
 			moveList.y = 150;
 			
 			enableGoButton = false;
+			redecide = false;
 			
 			addChild(moveList);
 			
@@ -296,6 +298,7 @@
 						removeChild(tmp[0]);
 						
 						lastInput();
+						redecide = true;
 					}
 				} else if (moves.length < 4) {
 					moves.push(input);
@@ -325,9 +328,10 @@
 					addChild(arrow);
 					
 					nextInput();
-					if (moves.length < 4) {
+					if (moves.length < 4 && !redecide) { // only play when moves list not full and not redeciding
 						nextPlayerSounds[this.input.next].play();
 					}
+					redecide = false;
 				}
 				updateGoButton();
 			}
