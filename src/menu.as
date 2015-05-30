@@ -90,7 +90,7 @@
 				addChild(buttons[selection]);
 			}
 			
-			selection = sel % 3;
+			selection = ((sel % 3) + 3) % 3; // map negative values correctly
 			
 			if (buttons[selection].stage) {
 				removeChild(buttons[selection]);
