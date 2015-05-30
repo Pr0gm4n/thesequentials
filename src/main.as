@@ -433,8 +433,8 @@
 					arduino.writeAnalogPin(6, (mask >>> 8) & 0xff); // G
 					arduino.writeAnalogPin(3, mask & 0xff); // B
 					arduino.flush();
-				} else trace("invalid index: " + index);
-			} else trace("updateArduino(): arduino not connected");
+				} else trace("main.updateArduino(): invalid index: " + index " for rgbLEDColors (" + rgbLEDColors.length + " elements)");
+			}
 		}
 		
 		/**
