@@ -88,9 +88,7 @@
 			
 			for (var y:Number = 0; y < rows; y++) {
 				var row:Array = structure[y].split("");
-				row.splice(-1, 1);
-				
-				for (var x in row) {
+				for (var x in row.slice(0, cols)) {
 					image = new Loader();
 					image.load(new URLRequest(path + BASETILE + TILE_FILEEXTENSION));
 					image.x = x * Grid.DX;
