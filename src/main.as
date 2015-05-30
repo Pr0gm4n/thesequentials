@@ -119,7 +119,7 @@
 				if (e.keyCode == 32) { // <SPACE>
 					clickGoButton();
 				}
-				if (e.keyCode == 116 || (e.ctrlKey && e.keyCode == 82)) { // <F5> or <Ctrl-r>
+				if (e.keyCode == 116 || e.keyCode == 82) { // <F5> or <r>
 					reset();
 				}
 			});
