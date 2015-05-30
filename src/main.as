@@ -115,10 +115,10 @@
 				}
 			});
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
-				if (e.keyCode == 32) { // spacebar
+				if (e.keyCode == 32) { // <SPACE>
 					clickGoButton();
 				}
-				if (e.keyCode == 116) { // F5
+				if (e.keyCode == 116 || (e.ctrlKey && e.keyCode == 82)) { // <F5> or <Ctrl-r>
 					reset();
 				}
 			});
