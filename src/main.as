@@ -233,7 +233,7 @@
 			movementDelay.addEventListener(TimerEvent.TIMER_COMPLETE, function(e:TimerEvent):void {
 				movementDelay.reset();
 				allowInput();
-				nextPlayerSounds[this.input.next].play();
+				nextPlayerSounds[input.next].play();
 				updateGoButton();
 			});
 		}
