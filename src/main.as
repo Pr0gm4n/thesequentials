@@ -77,13 +77,13 @@
 			input = new FiducialInput(this);
 			/*/
 			input = new KeyboardInput(this);
-			// */
 			
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
 				if (e.keyCode in codeMap) {
 					newInput(codeMap[e.keyCode]);
 				}
 			});
+			// */
 			
 			mainMenu = new menu(this);
 			
