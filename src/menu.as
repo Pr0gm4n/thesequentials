@@ -19,6 +19,8 @@
 		protected var channel:SoundChannel;
 		
 		protected var selection:int;
+		
+		public var isLoaded:Boolean;
 
 		public function menu(d:main) {
 			this.document = d;
@@ -56,6 +58,8 @@
 			glowButtons[2].addEventListener(MouseEvent.CLICK, advancedButtonClick);
 			
 			music = new Sound(new URLRequest("../Music/menu.mp3"));
+			
+			isLoaded = false;
 		}
 		
 		public function reset():void {
@@ -82,7 +86,7 @@
 			loadMenu();
 		}
 		
-		private function select(sel:int):void {
+		public function select(sel:int):void {
 			if (selection != -1) {
 				if (glowButtons[selection].stage) {
 					removeChild(glowButtons[selection]);
@@ -127,6 +131,8 @@
 			addChild(glowButtons[selection]);
 			
 			channel = music.play(0, 1000);
+			
+			isLoaded = true;
 		}
 		
 		private function removeMenu() {
@@ -141,6 +147,8 @@
 			}
 			
 			channel.stop();
+			
+			isLoaded = false;
 		}
 	}
 }

@@ -118,6 +118,9 @@
 				if (e.keyCode == 32) { // spacebar
 					clickGoButton();
 				}
+				if (e.keyCode == 116) { // F5
+					reset();
+				}
 			});
 			
 			nextPlayerSounds = new Array();
@@ -129,29 +132,33 @@
 		}
 		
 		public function reset(removeChildren:Boolean = true):void {
-			if (removeChildren) {
-				this.removeChildren();
-		
-				mode = undefined;
-				game.close();
-				game = undefined;
-				moves = undefined;
-				moveDisplayArray = undefined;
-				moveDisplayBackgrounds = undefined;
-				moveList = undefined;
-				enableGoButton = undefined;
-				movementDelay = undefined;
+			if (mainMenu.isLoaded) {
+				mainMenu.select(0);
+			} else {
+				if (removeChildren) {
+					this.removeChildren();
+			
+					mode = undefined;
+					game.close();
+					game = undefined;
+					moves = undefined;
+					moveDisplayArray = undefined;
+					moveDisplayBackgrounds = undefined;
+					moveList = undefined;
+					enableGoButton = undefined;
+					movementDelay = undefined;
+				}
+				
+				input.reset();
+				
+				setNewInput(newInputDefault, this);
+				block_newInput = true;
+				
+				setClickGoButton(function():void {});
+				
+				mainMenu.reset();
+				addChild(mainMenu);
 			}
-			
-			input.reset();
-			
-			setNewInput(newInputDefault, this);
-			block_newInput = true;
-			
-			setClickGoButton(function():void {});
-			
-			mainMenu.reset();
-			addChild(mainMenu);
 		}
 		
 		private function setupEasyMode() {
