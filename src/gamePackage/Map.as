@@ -95,7 +95,7 @@
 					image.y = y * Grid.DY;
 					addChild(image);
 					
-					if (row[x] != " ") {
+					if (row[x].match(/[a-z1-9X]/) != null) {
 						image = new Loader();
 						image.load(new URLRequest(path + row[x] + TILE_FILEEXTENSION));
 						if (row[x].match(/[a-z]/) != null) {
