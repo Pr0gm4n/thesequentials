@@ -55,8 +55,20 @@
 			removeChild(character);
 		}
 		
+		override public function close():void {
+			super.close();
+			
+			if (channel) {
+				channel.stop();
+			}
+		}
+		
 		override public function restart(removeChildren:Boolean = true):void {
 			super.restart(removeChildren);
+			
+			if (removeChildren) {
+				channel.stop();
+			}
 			
 			this.goal = new LogicGoal(this, rows, cols);
 			this.logicGoal = goal as LogicGoal;

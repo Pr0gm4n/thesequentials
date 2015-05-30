@@ -133,6 +133,7 @@
 				this.removeChildren();
 		
 				mode = undefined;
+				game.close();
 				game = undefined;
 				moves = undefined;
 				moveDisplayArray = undefined;

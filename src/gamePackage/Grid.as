@@ -53,6 +53,10 @@
 			}
 		}
 		
+		public function close():void {
+			removeChildren();
+		}
+		
 		public function restart(removeChildren:Boolean = true):void {
 			if (removeChildren) {
 				this.removeChildren();
