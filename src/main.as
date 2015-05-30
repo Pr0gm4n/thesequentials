@@ -275,7 +275,7 @@
 					lastInput();
 				} else {
 					nextInput();
-					if (game.character.last != Bug.UNDO) {
+					if (game.character.last != Bug.UNDO && !block_newInput) { // only play when not redeciding and level not finished yet
 						nextPlayerSounds[this.input.next].play();
 					}
 				}
