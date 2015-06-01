@@ -252,7 +252,9 @@
 				movementDelay.reset();
 				allowInput();
 				
-				if (!game.isFinished) {
+				if (game.isFinished) {
+					setArduinoRGB(0);
+				} else {
 					nextPlayerSounds[input.next].play();
 					updateGoButton();
 				}
@@ -292,7 +294,10 @@
 			if (block_newInput) return;
 			if (mode == EASY) {
 				game.move(input);
-				if (input == Bug.UNDO) {
+				
+				if (game.isFinished) {
+					setArduinoRGB(0);
+				} else if (input == Bug.UNDO) {
 					lastInput();
 				} else {
 					nextInput();
@@ -456,15 +461,18 @@
 		}
 		
 		private function updateArduino():void {
-			if (arduino.connected) {
-				var index:int = cubeColors.indexOf(nextCubeColor.color);
-				if (0 <= index && index < rgbLEDColors.length) {
-					var mask:uint = rgbLEDColors[index];
-					arduino.writeAnalogPin(5, mask >>> 16); // R
-					arduino.writeAnalogPin(6, (mask >>> 8) & 0xff); // G
-					arduino.writeAnalogPin(3, mask & 0xff); // B
-					arduino.flush();
-				} else trace("main.updateArduino(): invalid index: " + index + " for rgbLEDColors (" + rgbLEDColors.length + " elements)");
+			var index:int = cubeColors.indexOf(nextCubeColor.color);
+			if (0 <= index && index < rgbLEDColors.length) {
+				setArduinoRGB(rgbLEDColors[index]);
+			} else trace("main.updateArduino(): invalid index: " + index + " for rgbLEDColors (" + rgbLEDColors.length + " elements)");
+		}
+		
+		private function setArduinoRGB(mask:uint):void {
+			if(arduino.connected) {
+				arduino.writeAnalogPin(5, mask >>> 16); // R
+				arduino.writeAnalogPin(6, (mask >>> 8) & 0xff); // G
+				arduino.writeAnalogPin(3, mask & 0xff); // B
+				arduino.flush();
 			}
 		}
 		
