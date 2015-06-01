@@ -30,14 +30,14 @@
 			buttons = new Array();
 			glowButtons = new Array();
 			
-			buttons.push(new beginnerText);
+			buttons.push(new advancedText);
 			buttons[0].x = 940;
-			buttons[0].y = 600;
-			buttons[0].addEventListener(MouseEvent.CLICK, beginnerButtonClick);
-			glowButtons.push(new beginnerTextGlow);
+			buttons[0].y = 800;
+			buttons[0].addEventListener(MouseEvent.CLICK, advancedButtonClick);
+			glowButtons.push(new advancedTextGlow);
 			glowButtons[0].x = 940;
-			glowButtons[0].y = 600;
-			glowButtons[0].addEventListener(MouseEvent.CLICK, beginnerButtonClick);
+			glowButtons[0].y = 800;
+			glowButtons[0].addEventListener(MouseEvent.CLICK, advancedButtonClick);
 			
 			buttons.push(new intermediateText);
 			buttons[1].x = 940;
@@ -48,14 +48,14 @@
 			glowButtons[1].y = 700;
 			glowButtons[1].addEventListener(MouseEvent.CLICK, intermediateButtonClick);
 			
-			buttons.push(new advancedText);
+			buttons.push(new beginnerText);
 			buttons[2].x = 940;
-			buttons[2].y = 800;
-			buttons[2].addEventListener(MouseEvent.CLICK, advancedButtonClick);
-			glowButtons.push(new advancedTextGlow);
+			buttons[2].y = 600;
+			buttons[2].addEventListener(MouseEvent.CLICK, beginnerButtonClick);
+			glowButtons.push(new beginnerTextGlow);
 			glowButtons[2].x = 940;
-			glowButtons[2].y = 800;
-			glowButtons[2].addEventListener(MouseEvent.CLICK, advancedButtonClick);
+			glowButtons[2].y = 600;
+			glowButtons[2].addEventListener(MouseEvent.CLICK, beginnerButtonClick);
 			
 			music = new Sound(new URLRequest("../Music/menu.mp3"));
 			
@@ -63,20 +63,20 @@
 		}
 		
 		public function reset():void {
-			this.selection = 0;
+			this.selection = 2; // easy mode
 			
 			document.setArduinoGoButton(true);
 			document.setClickGoButton(function():void {
 				document.setArduinoGoButton(false);
 				switch (selection) {
-					case 0:
-						beginnerButtonClick();
+					case 0: // red
+						advancedButtonClick();
 						break;
-					case 1:
+					case 1: // yellow
 						intermediateButtonClick();
 						break;
-					case 2:
-						advancedButtonClick();
+					case 2: // green
+						beginnerButtonClick();
 						break;
 				}
 			}, this);
