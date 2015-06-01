@@ -469,7 +469,7 @@
 		
 		private function setArduinoRGB(mask:uint):void {
 			if(arduino.connected) {
-				arduino.writeAnalogPin(5, mask >>> 16); // R
+				arduino.writeAnalogPin(5, (mask >>> 16) & 0xff); // R
 				arduino.writeAnalogPin(6, (mask >>> 8) & 0xff); // G
 				arduino.writeAnalogPin(3, mask & 0xff); // B
 				arduino.flush();
