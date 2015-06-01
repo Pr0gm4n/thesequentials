@@ -65,7 +65,9 @@
 		public function reset():void {
 			this.selection = 0;
 			
+			document.setArduinoGoButton(true);
 			document.setClickGoButton(function():void {
+				document.setArduinoGoButton(false);
 				switch (selection) {
 					case 0:
 						beginnerButtonClick();

@@ -122,9 +122,11 @@
 			addChild(box);
 			addChild(textField);
 			
+			document.setArduinoGoButton(true);
 			document.setClickGoButtonOnce(function():void {
 				removeChild(textField);
 				removeChild(box);
+				document.setArduinoGoButton(false);
 				if (callback != null) {
 					callback.apply(context, args);
 				}

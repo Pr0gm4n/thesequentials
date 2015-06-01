@@ -120,8 +120,10 @@
 			image.load(new URLRequest(OTHERPATH + TUTORIAL));
 			document.addChild(image);
 			
+			document.setArduinoGoButton(true);
 			document.setClickGoButtonOnce(function():void {
 				document.removeChild(image);
+				document.setArduinoGoButton(false);
 				
 				logicGoal.input = structure.slice(rows);
 				file = new URLLoader();

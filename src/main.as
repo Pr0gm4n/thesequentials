@@ -106,6 +106,8 @@
 				arduino.setPinMode(9, Arduino.OUTPUT); // goButton
 				
 				arduino.enableDigitalPinReporting();
+				
+				setArduinoGoButton(true); // for the menu selection
 			});
 			arduino.addEventListener(IOErrorEvent.IO_ERROR, function(e:Event = null):void {
 				trace("IO_ERROR: " + e.toString());
