@@ -19,6 +19,7 @@
 		}
 
 		protected function input(input:uint):void {
+			if (input > Bug.MOVES * main.cubeColors.length) return;
 			var tmp = 0, cube = -1;
 			if (input > 0) {
 				tmp = ((input + Bug.MOVES - 1) % Bug.MOVES) + 1;

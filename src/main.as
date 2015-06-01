@@ -75,7 +75,7 @@
 			codeMap[39] = Bug.TURNRIGHT;
 			codeMap[40] = Bug.UNDO;
 			
-			/*
+			//*
 			input = new FiducialInput(this);
 			/*/
 			input = new KeyboardInput(this);
