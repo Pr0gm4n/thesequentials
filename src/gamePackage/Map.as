@@ -35,6 +35,8 @@
 		private var map:uint;
 		private var level:uint;
 		private var layout:uint;
+		
+		private var showedTutorial:Boolean;
 
 		public function Map(document:main, x:uint, y:uint, rows:uint, cols:uint, map:uint, level:uint, layout:uint = 1) {
 			super(document, rows, cols, false);
@@ -44,6 +46,8 @@
 			this.map = map;
 			this.level = level;
 			this.layout = layout;
+			
+			showedTutorial = false;
 			
 			this.path = MAPPATH + MAPFOLDER_PREFIX + map + "/";
 			
@@ -116,20 +120,23 @@
 			
 			addChild(character);
 			
-			image = new Loader();
-			image.load(new URLRequest(OTHERPATH + TUTORIAL));
-			document.addChild(image);
-			
-			document.setArduinoGoButton(true);
-			document.setClickGoButtonOnce(function():void {
-				document.removeChild(image);
-				document.setArduinoGoButton(false);
+			if (!showedTutorial) {
+				showedTutorial = true;
 				
-				logicGoal.input = structure.slice(rows);
-				file = new URLLoader();
-				file.addEventListener(Event.COMPLETE, loadGoalNames);
-				file.load(new URLRequest(path + GOALNAMES));
-			}, this);
+				image = new Loader();
+				image.load(new URLRequest(OTHERPATH + TUTORIAL));
+				document.addChild(image);
+				
+				document.setArduinoGoButton(true);
+				document.setClickGoButtonOnce(function():void {
+					document.removeChild(image);
+					document.setArduinoGoButton(false);
+				}, this);
+			}
+			logicGoal.input = structure.slice(rows);
+			file = new URLLoader();
+			file.addEventListener(Event.COMPLETE, loadGoalNames);
+			file.load(new URLRequest(path + GOALNAMES));
 			
 			channel = music.play(0, 10000, new SoundTransform(0.15, 0));
 		}
