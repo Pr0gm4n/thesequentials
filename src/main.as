@@ -251,8 +251,11 @@
 			movementDelay.addEventListener(TimerEvent.TIMER_COMPLETE, function(e:TimerEvent):void {
 				movementDelay.reset();
 				allowInput();
-				nextPlayerSounds[input.next].play();
-				updateGoButton();
+				
+				if (!game.isFinished) {
+					nextPlayerSounds[input.next].play();
+					updateGoButton();
+				}
 			});
 		}
 		

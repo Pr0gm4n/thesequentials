@@ -61,6 +61,7 @@
 						reachable = goalDisplay.update(targetReached);
 						if (!reachable) {
 							tryagain.play();
+							game.isFinished = true;
 							game.addMessage("Oh no, try again!", 80, function():void {
 								game.restart();
 							});

@@ -23,10 +23,11 @@
 		public static const DX:uint = 112;
 		public static const DY:uint = 112;
 		
-		protected var document:main;
+		public var document:main;
 		
-		public var rows;
-		public var cols;
+		public var rows:uint;
+		public var cols:uint;
+		public var isFinished:Boolean;
 		
 		public var character:Bug;
 		
@@ -62,6 +63,7 @@
 				this.removeChildren();
 			}
 			this.goal = new SimpleGoal();
+			this.isFinished = false;
 			
 			character = new Bug(this);
 			character.gotoAndStop(1);
@@ -79,6 +81,7 @@
 		public function move(action:uint):void {
 			character.move(action);
 			if (goal.isGoal(character.posX, character.posY)) {
+				isFinished = true;
 				document.blockInput();
 				addMessage("Well done!", 100, function():void {
 					document.reset();
