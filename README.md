@@ -18,8 +18,16 @@ To run the application, launch reacTIVision and the udpbridge (either from comma
 * upload the File/Examples/Firmata/StandardFirmata to the Arduino
 * download the Serproxy and ActionScript files from http://www.kasperkamperman.com/wordpress_kk/wordpress_uploads/2010/05/arduino_as3glue_bundle_v14.zip
 * configure the serproxy.cfg according to your OS and the COM port the Arduino uses
+* make sure to use a baudrate of 9600
 
 To run the application, plug in the Arduino and launch the Serproxy.
+
+### Arduino hardware connections
+* Pin2: GO button
+* Pin3: blue
+* Pin5: red
+* Pin6: green
+* Pin9: GO button LED
 
 ## Fiducial Cube Assignment
 [Direction] : [Fiducial id] 
