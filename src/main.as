@@ -47,6 +47,7 @@
 		
 		// handle connection to the arduino
 		var arduino:Arduino;
+		var block_goButton:Boolean;
 		
 		// basic display objects
 		var mainMenu:menu;
@@ -110,9 +111,14 @@
 			});
 			
 			setClickGoButton(function():void {});
+			block_goButton = false;
 			arduino.addEventListener(ArduinoEvent.DIGITAL_DATA, function(e:ArduinoEvent):void {
-				if (e.pin == 2) {
+				if (!block_goButton && e.pin == 2 && e.value == 0) { // GO button is pressed
+					block_goButton = true;
 					clickGoButton();
+					delayCallback(100, function():void {
+						block_goButton = false;
+					});
 				}
 			});
 			stage.addEventListener(KeyboardEvent.KEY_DOWN, function(e:KeyboardEvent):void {
