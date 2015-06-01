@@ -131,14 +131,20 @@
 				document.setClickGoButtonOnce(function():void {
 					document.removeChild(image);
 					document.setArduinoGoButton(false);
+					loadLogicGoals(structure);
 				}, this);
+			} else {
+				loadLogicGoals(structure);
 			}
+			
+			channel = music.play(0, 10000, new SoundTransform(0.15, 0));
+		}
+		
+		private function loadLogicGoals(structure:Array):void {
 			logicGoal.input = structure.slice(rows);
 			file = new URLLoader();
 			file.addEventListener(Event.COMPLETE, loadGoalNames);
 			file.load(new URLRequest(path + GOALNAMES));
-			
-			channel = music.play(0, 10000, new SoundTransform(0.15, 0));
 		}
 		
 		private function loadGoalNames(e:Event = null) {
