@@ -21,7 +21,7 @@
 		public static const INTERMEDIATE:uint = 2;
 		public static const ADVANCED:uint = 3;
 		
-		public static const NUMBER_OF_MAPS:uint = 4;
+		public static const NUMBER_OF_MAPS:uint = 5;
 		public static const NUMBER_OF_LAYOUTS:uint = 1;
 		
 		public static const cubeColors:Array = [0xff0000, 0xffff00, 0x00ff00, 0x0000ff];
