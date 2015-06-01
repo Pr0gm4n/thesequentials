@@ -103,6 +103,7 @@
 				arduino.setPinMode(3, Arduino.PWM); // blue
 				arduino.setPinMode(5, Arduino.PWM); // red
 				arduino.setPinMode(6, Arduino.PWM); // green
+				arduino.setPinMode(9, Arduino.OUTPUT); // goButton
 				
 				arduino.enableDigitalPinReporting();
 			});
@@ -438,6 +439,14 @@
 					ghost.move(moves[i]);
 				}
 				enableGoButton = game.getGoal().isGoal(ghost.posX, ghost.posY, false);
+			}
+			setArduinoGoButton(enableGoButton || moves.length == 4);
+		}
+		
+		public function setArduinoGoButton(value:Boolean):void {
+			if (arduino.connected) {
+				arduino.writeDigitalPin(9, (value ? 1 : 0));
+				arduino.flush();
 			}
 		}
 		
