@@ -105,7 +105,7 @@
 		
 		public function addMessage(message:String, fontSize:Number = 30, callback:Function = null, context:Object = null, args:Array = null):void {
 			var box = new dialog;
-			box.x = cols * DX / 2;
+			box.x = main.WIDTH / 2 - this.x;
 			box.y = rows * DY / 2;
 			
 			var textField:TextField = new TextField();
