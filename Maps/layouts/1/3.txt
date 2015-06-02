@@ -1,0 +1,10 @@
+c   cccc
+ 3 c c c
+       a
+cc   ccc
+c      c
+    cccc
+ cc cc  
+cccXcccc
+3
+
