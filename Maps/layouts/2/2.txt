@@ -1,0 +1,10 @@
+2bb    b
+      bb
+ bbb    
+  b   b 
+  b X b 
+  b   b 
+bb      
+bbbbb  b
+2
+
