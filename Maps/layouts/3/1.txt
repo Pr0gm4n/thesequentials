@@ -1,11 +1,11 @@
 X   bbbb
     3bbb
-1      b
+4      b
 a       
 a2ccc   
 aacc    
 aaa     
-aaaaa  3
+aaaaa  1
 1,2
 3
 !4
