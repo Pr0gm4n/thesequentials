@@ -137,7 +137,7 @@
 				loadLogicGoals(structure);
 			}
 			
-			channel = music.play(0, 10000, new SoundTransform(0.15, 0));
+			channel = music.play(0, 10000, new SoundTransform(0.5, 0));
 		}
 		
 		private function loadLogicGoals(structure:Array):void {
