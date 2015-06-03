@@ -49,6 +49,7 @@
 		
 		// handle connection to the arduino
 		var arduino:Arduino;
+		var arduinoTimer:Timer;
 		var block_goButton:Boolean;
 		
 		// basic display objects
@@ -92,28 +93,11 @@
 			
 			mainMenu = new menu(this);
 			
-			arduino = new Arduino();
-			arduino.addEventListener(Event.CONNECT, function(e:Event):void {
-				trace("connected to Serproxy");
-				arduino.requestFirmwareVersion();
-			});
-			arduino.addEventListener(IOErrorEvent.IO_ERROR, function(e:Event):void {
-				trace("connection to Serproxy failed");
-			});
-			arduino.addEventListener(ArduinoEvent.FIRMWARE_VERSION, function(e:ArduinoEvent):void {
-				trace("connected to Arduino");
-				arduino.setPinMode(2, Arduino.INPUT);
-				arduino.setPinMode(3, Arduino.PWM); // blue
-				arduino.setPinMode(5, Arduino.PWM); // red
-				arduino.setPinMode(6, Arduino.PWM); // green
-				arduino.setPinMode(9, Arduino.OUTPUT); // goButton
-				
-				arduino.enableDigitalPinReporting();
-				
-				setArduinoGoButton(true); // for the menu selection
-			});
-			arduino.addEventListener(IOErrorEvent.IO_ERROR, function(e:Event = null):void {
-				trace("IO_ERROR: " + e.toString());
+			setupArduino();
+			arduinoTimer = new Timer(3000, function():void {
+				if (!arduino.connected) {
+					setupArduino();
+				}
 			});
 			
 			setClickGoButton(function():void {});
@@ -466,6 +450,32 @@
 				enableGoButton = game.getGoal().isGoal(ghost.posX, ghost.posY, false);
 			}
 			setArduinoGoButton(enableGoButton || moves.length == 4);
+		}
+		
+		private function setupArduino():void {
+			arduino = new Arduino();
+			arduino.addEventListener(Event.CONNECT, function(e:Event):void {
+				trace("connected to Serproxy");
+				arduino.requestFirmwareVersion();
+			});
+			arduino.addEventListener(IOErrorEvent.IO_ERROR, function(e:Event):void {
+				trace("connection to Serproxy failed");
+			});
+			arduino.addEventListener(ArduinoEvent.FIRMWARE_VERSION, function(e:ArduinoEvent):void {
+				trace("connected to Arduino");
+				arduino.setPinMode(2, Arduino.INPUT);
+				arduino.setPinMode(3, Arduino.PWM); // blue
+				arduino.setPinMode(5, Arduino.PWM); // red
+				arduino.setPinMode(6, Arduino.PWM); // green
+				arduino.setPinMode(9, Arduino.OUTPUT); // goButton
+				
+				arduino.enableDigitalPinReporting();
+				
+				setArduinoGoButton(true); // for the menu selection
+			});
+			arduino.addEventListener(IOErrorEvent.IO_ERROR, function(e:Event = null):void {
+				trace("IO_ERROR: " + e.toString());
+			});
 		}
 		
 		public function setArduinoGoButton(value:Boolean):void {
