@@ -69,6 +69,7 @@
 		
 		// delays movement of bug in intermediate/advanced mode
 		var movementDelay:Timer;
+		var ghostDelay:Timer;
 		
 		public function main() {
 			codeMap = new Dictionary();
@@ -166,6 +167,9 @@
 					moveList = undefined;
 					enableGoButton = undefined;
 					movementDelay = undefined;
+					if (ghostDelay) {
+						ghostDelay.stop();
+					}
 				}
 				
 				input.reset();
@@ -200,7 +204,7 @@
 			game.setSpeed(1.0);
 			movementDelay.delay = 1000;
 			
-			var ghostDelay:Timer = new Timer(8000);
+			ghostDelay = new Timer(8000);
 			ghostDelay.addEventListener(TimerEvent.TIMER, function(e:TimerEvent = null):void {
 				if (moves.length > 0 && !block_newInput) {
 					var tmpMoves:Array = moves.slice(); // shallow copy, works for non-object arrays
