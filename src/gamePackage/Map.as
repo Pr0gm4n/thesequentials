@@ -36,6 +36,7 @@
 		private var level:uint;
 		private var layout:uint;
 		
+		private static var tutorial:Loader;
 		private var showedTutorial:Boolean;
 
 		public function Map(document:main, x:uint, y:uint, rows:uint, cols:uint, map:uint, level:uint, layout:uint = 1) {
@@ -47,6 +48,11 @@
 			this.level = level;
 			this.layout = layout;
 			
+			
+			if (!tutorial) {
+				tutorial = new Loader();
+				tutorial.load(new URLRequest(OTHERPATH + TUTORIAL));
+			}
 			showedTutorial = false;
 			
 			this.path = MAPPATH + MAPFOLDER_PREFIX + map + "/";
@@ -123,13 +129,11 @@
 			if (!showedTutorial) {
 				showedTutorial = true;
 				
-				image = new Loader();
-				image.load(new URLRequest(OTHERPATH + TUTORIAL));
-				document.addChild(image);
+				document.addChild(tutorial);
 				
 				document.setArduinoGoButton(true);
 				document.setClickGoButtonOnce(function():void {
-					document.removeChild(image);
+					document.removeChild(tutorial);
 					document.setArduinoGoButton(false);
 					loadLogicGoals(structure);
 				}, this);
