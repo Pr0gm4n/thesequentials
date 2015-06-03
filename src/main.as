@@ -94,11 +94,13 @@
 			mainMenu = new menu(this);
 			
 			setupArduino();
-			arduinoTimer = new Timer(3000, function():void {
+			arduinoTimer = new Timer(3000);
+			arduinoTimer.addEventListener(TimerEvent.TIMER, function():void {
 				if (!arduino.connected) {
 					setupArduino();
 				}
 			});
+			arduinoTimer.start();
 			
 			setClickGoButton(function():void {});
 			block_goButton = false;
