@@ -7,6 +7,8 @@
 	import com.greensock.TweenMax;
 	import flash.media.Sound;
 	import flash.net.URLRequest;
+	import flash.events.TimerEvent;
+	import flash.events.Event;
 	
 	public class Bug extends MovieClip{
 		
@@ -36,6 +38,8 @@
 		protected var forwardSound:Sound;
 		protected var turnSound:Sound;
 		protected var bumpSound:Sound;
+		protected var block_sound:Boolean;
+		protected var unblockSoundTimer:Timer;
 		
 		// store the last performed action for undo()
 		public var last:uint;
@@ -67,6 +71,12 @@
 			turnSound = new Sound(new URLRequest(Grid.SOUNDPATH + "ant_turn" + Grid.SOUND_FILEEXTENSION));
 			bumpSound = new Sound(new URLRequest(Grid.SOUNDPATH + "ant_wall" + Grid.SOUND_FILEEXTENSION));
 			
+			block_sound = false;
+			unblockSoundTimer = new Timer(100);
+			unblockSoundTimer.addEventListener(TimerEvent.TIMER, function(e:Event = null):void {
+				block_sound = false;
+				unblockSoundTimer.reset();
+			});
 			this.last = UNDO;
 			
 			this.grid = grid;
@@ -126,8 +136,10 @@
 				this.posY += dy;
 				updatePosition();
 				
-				if (alpha == 1.0) {
+				if (alpha == 1.0 && !block_sound) {
 					forwardSound.play();
+					block_sound = true;
+					unblockSoundTimer.start();
 				}
 			
 				last = FORWARD;
@@ -148,8 +160,10 @@
 				angle %= 360;
 			}, this);
 			
-			if (alpha == 1.0) {
+			if (alpha == 1.0 && !block_sound) {
 				turnSound.play();
+				block_sound = true;
+				unblockSoundTimer.start();
 			}
 			
 			last = TURNLEFT;
@@ -166,8 +180,10 @@
 				angle %= 360;
 			}, this);
 			
-			if (alpha == 1.0) {
+			if (alpha == 1.0 && !block_sound) {
 				turnSound.play();
+				block_sound = true;
+				unblockSoundTimer.start();
 			}
 			
 			last = TURNRIGHT;
@@ -199,8 +215,10 @@
 				});
 			}, this);
 			
-			if (alpha == 1.0) {
+			if (alpha == 1.0 && !block_sound) {
 				bumpSound.play();
+				block_sound = true;
+				unblockSoundTimer.start();
 			}
 		}
 	}
