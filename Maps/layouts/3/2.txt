@@ -1,0 +1,11 @@
+ aaabbb 
+ aa   2b
+a3     b
+a   X  b
+a      b
+a      b
+a1a4b bb
+aaaabbb 
+1,2
+3
+!4

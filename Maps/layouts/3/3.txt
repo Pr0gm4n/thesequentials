@@ -1,0 +1,11 @@
+b1   bbb
+bb   b2b
+X    b  
+a    b  
+a       
+aaaa   4
+aa3     
+aa      
+1,2
+3
+!4
