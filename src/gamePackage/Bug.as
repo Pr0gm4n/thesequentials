@@ -72,7 +72,7 @@
 			bumpSound = new Sound(new URLRequest(Grid.SOUNDPATH + "ant_wall" + Grid.SOUND_FILEEXTENSION));
 			
 			block_sound = false;
-			unblockSoundTimer = new Timer(100);
+			unblockSoundTimer = new Timer(500);
 			unblockSoundTimer.addEventListener(TimerEvent.TIMER, function(e:Event = null):void {
 				block_sound = false;
 				unblockSoundTimer.reset();

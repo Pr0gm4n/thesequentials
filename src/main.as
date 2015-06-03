@@ -32,6 +32,8 @@
 		public static const NEXTPLAYERSOUND_FILEEXTENSION:String = ".mp3";
 		
 		public var nextPlayerSounds:Array;
+		protected var block_sound:Boolean;
+		protected var unblockSoundTimer:Timer;
 		
 		public var mode:uint;
 		var block_newInput:Boolean;
@@ -137,6 +139,13 @@
 			for each (var color in cubeColorStrings) {
 				nextPlayerSounds.push(new Sound(new URLRequest(SOUNDPATH + NEXTPLAYERSOUND_PREFIX + color + NEXTPLAYERSOUND_FILEEXTENSION)));
 			}
+			
+			block_sound = false;
+			unblockSoundTimer = new Timer(500);
+			unblockSoundTimer.addEventListener(TimerEvent.TIMER, function(e:Event = null):void {
+				block_sound = false;
+				unblockSoundTimer.reset();
+			});
 			
 			reset(false);
 		}
@@ -301,8 +310,10 @@
 					lastInput();
 				} else {
 					nextInput();
-					if (game.character.last != Bug.UNDO && !block_newInput) { // only play when not redeciding and level not finished yet
+					if (game.character.last != Bug.UNDO && !block_newInput && !block_sound) { // only play when not redeciding and level not finished yet
 						nextPlayerSounds[this.input.next].play();
+						block_sound = true;
+						unblockSoundTimer.start();
 					}
 				}
 			} else { // intermediate/advanced mode
