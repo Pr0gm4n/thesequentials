@@ -31,7 +31,9 @@
 			}
 			
 			if (next < 0 || cube == last || cube == next) {
-				last = cube;
+				if (document.mainMenu.isLoaded || document.mode == main.EASY || (!document.block_newInput && document.moves.length < 4)) {
+					last = cube;
+				}
 				document.newInput(tmp);
 			}
 		}

@@ -36,7 +36,7 @@
 		protected var unblockSoundTimer:Timer;
 		
 		public var mode:uint;
-		var block_newInput:Boolean;
+		public var block_newInput:Boolean;
 		
 		// maps keycodes to bug movements
 		private var codeMap:Dictionary;
@@ -52,12 +52,12 @@
 		var block_goButton:Boolean;
 		
 		// basic display objects
-		var mainMenu:menu;
+		public var mainMenu:menu;
 		var game:Grid;
 		var checkList;
 		
 		// intermediate/advanced mode
-		var moves:Array;
+		public var moves:Array;
 		var moveDisplayArray:Array;
 		var moveDisplayBackgrounds:Array;
 		var moveList;
